@@ -1,37 +1,26 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Karl Pilkington Quiz Homepage</title>
-    <!-- Stripe Buy Button Script -->
-    <script src="https://js.stripe.com/v3/"></script>
+    <link rel="stylesheet" href="styles.css">
+    <title>Karl Pilkington Quiz</title>
 </head>
 <body>
     <header>
-        <h1>Welcome to the Karl Pilkington Quiz!</h1>
+        <h1>Welcome to the Karl Pilkington Quiz</h1>
     </header>
     <main>
-        <section id="countdown">
-            <h2>Countdown Timer</h2>
-            <div id="timer">00:00:00</div>
-        </section>
-        <section id="payment">
-            <h2>Purchase Your Quiz</h2>
-            <stripe-buy-button buy-button-id="buy_btn_1T4jNkJu76s8ndhcN3RM6sp7" publishable-key="pk_live_51T4TucJu76s8ndhc5CKHXPpWBKlmFVZDwffbUGzETaRlSOpn7dDBq8E4hv0CTdmyr2gmgAzfklrhjRt7JjKA5v5p00bkiwK6vh"></stripe-buy-button>
-        </section>
-        <button id="infoBtn">Info</button>
-        <button id="rulesBtn">Rules</button>
-        <button id="prizesBtn">Prizes</button>
-        <button id="faqBtn">FAQ</button>
+        <div id="quiz-container">
+            <h2>Test Your Knowledge</h2>
+            <div id="questions"></div>
+            <button id="submit-button">Submit Answers</button>
+            <div id="timer">Time: <span id="countdown">30</span> seconds</div>
+        </div>
     </main>
-    <div id="infoModal" class="modal">Info Content</div>
-    <div id="rulesModal" class="modal">Rules Content</div>
-    <div id="prizesModal" class="modal">Prizes Content</div>
-    <div id="faqModal" class="modal">FAQ Content</div>
-    <script>
-        // Countdown timer functionality
-        // Modal functionality
-    </script>
+    <footer>
+        <p>Payment Details: <span id="payment-placeholder">[Payment Button]</span></p>
+    </footer>
+    <script src="script.js"></script>
 </body>
 </html>
