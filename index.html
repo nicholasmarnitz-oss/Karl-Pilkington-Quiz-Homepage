@@ -3,29 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Karl Pilkington Quiz Homepage</title>
     <link rel="stylesheet" href="styles.css">
+    <title>Karl Pilkington Quiz</title>
 </head>
 <body>
     <header>
-        <h1>Welcome to the Karl Pilkington Quiz!</h1>
+        <h1>Karl Pilkington Quiz Homepage</h1>
     </header>
     <main>
-        <section id="info">
-            <h2>Info</h2>
-            <ul>
-                <li>★  This quiz tests your knowledge of Karl Pilkington.</li>
-                <li>★  Answer all questions to see your score.</li>
-                <li>★  Have fun and enjoy the quiz!</li>
-            </ul>
+        <section id="countdown-section">
+            <div id="countdown-timer">Countdown: <span id="timer"></span></div>
         </section>
-        <section id="quiz">
-            <h2>Take the Quiz</h2>
-            <!-- Quiz content goes here -->
+        <section id="buy-section">
+            <button id="buy-button">Buy Now</button>
+        </section>
+        <section id="info-modal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Info</h2>
+                <ul>
+                    <li>★ Bullet Point 1</li>
+                    <li>★ Bullet Point 2</li>
+                    <li>★ Bullet Point 3</li>
+                </ul>
+            </div>
+        </section>
+        <section id="rules">
+            <h2>Rules</h2>
+            <p>Rule 1: Follow the instructions.</p>
+            <p>Rule 2: Be respectful.</p>
+        </section>
+        <section id="prizes">
+            <h2>Prizes</h2>
+            <p>1st Prize: $100</p>
+            <p>2nd Prize: $50</p>
+        </section>
+        <section id="faq">
+            <h2>FAQ</h2>
+            <p>Question 1: What is this quiz about?</p>
+            <p>Question 2: How can I participate?</p>
         </section>
     </main>
-    <footer>
-        <p>© 2026 Karl Pilkington Quiz</p>
-    </footer>
+    <script src="script.js"></script>
 </body>
 </html>
