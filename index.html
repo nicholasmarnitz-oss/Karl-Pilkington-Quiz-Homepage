@@ -1,26 +1,217 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
-    <title>Karl Pilkington Quiz</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Karl Pilkington Virtual Pub Quiz</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: system-ui, sans-serif;
+      background: #0f172a;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+    }
+
+    h1 {
+      font-size: 42px;
+      margin-bottom: 10px;
+    }
+
+    p {
+      opacity: 0.8;
+    }
+
+    .countdown {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin: 30px 0;
+      flex-wrap: wrap;
+    }
+
+    .box {
+      background: #1e293b;
+      padding: 15px;
+      border-radius: 10px;
+      min-width: 70px;
+    }
+
+    .num {
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .btn {
+      display: inline-block;
+      margin: 10px;
+      padding: 14px 20px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .primary {
+      background: #8b5cf6;
+      color: white;
+    }
+
+    .secondary {
+      background: white;
+      color: black;
+    }
+
+    .icons {
+      margin-top: 30px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    .icon {
+      background: #1e293b;
+      padding: 15px;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background: #1e293b;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 500px;
+      text-align: left;
+    }
+
+    .close {
+      float: right;
+      cursor: pointer;
+    }
+
+  </style>
 </head>
+
 <body>
-    <header>
-        <h1>Welcome to the Karl Pilkington Quiz</h1>
-    </header>
-    <main>
-        <div id="quiz-container">
-            <h2>Test Your Knowledge</h2>
-            <div id="questions"></div>
-            <button id="submit-button">Submit Answers</button>
-            <div id="timer">Time: <span id="countdown">30</span> seconds</div>
-        </div>
-    </main>
-    <footer>
-        <p>Payment Details: <span id="payment-placeholder">[Payment Button]</span></p>
-    </footer>
-    <script src="script.js"></script>
+
+<div class="container">
+
+  <h1>Karl Pilkington Virtual Pub Quiz</h1>
+  <p>Live online quiz • Speed + accuracy • Play from anywhere</p>
+
+  <div class="countdown">
+    <div class="box"><div class="num" id="d">0</div><div>Days</div></div>
+    <div class="box"><div class="num" id="h">0</div><div>Hours</div></div>
+    <div class="box"><div class="num" id="m">0</div><div>Minutes</div></div>
+    <div class="box"><div class="num" id="s">0</div><div>Seconds</div></div>
+  </div>
+
+  <p><strong>Monday, 1 June 2026 • 9:00pm (Dublin)</strong></p>
+
+  <div>
+    <script async src="https://js.stripe.com/v3/buy-button.js"></script>
+    <stripe-buy-button
+      buy-button-id="buy_btn_1T4jNkJu76s8ndhcN3RM6sp7"
+      publishable-key="pk_live_51T4TucJu76s8ndhc5CKHXPpWBKlmFVZDwffbUGzETaRlSOpn7dDBq8E4hv0CTdmyr2gmgAzfklrhjRt7JjKA5v5p00bkiwK6vh"
+    ></stripe-buy-button>
+  </div>
+
+  <div class="icons">
+    <div class="icon" onclick="openModal('info')">ℹ️ Info</div>
+    <div class="icon" onclick="openModal('rules')">📜 Rules</div>
+    <div class="icon" onclick="openModal('prizes')">🏆 Prizes</div>
+    <div class="icon" onclick="openModal('faq')">❓ FAQ</div>
+  </div>
+
+</div>
+
+<!-- Modal -->
+<div class="modal" id="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">✖</span>
+    <div id="modal-text"></div>
+  </div>
+</div>
+
+<script>
+
+const eventDate = new Date("2026-06-01T21:00:00+01:00");
+
+function updateCountdown() {
+  const now = new Date();
+  let diff = eventDate - now;
+
+  if (diff < 0) diff = 0;
+
+  const s = Math.floor(diff / 1000);
+  const d = Math.floor(s / 86400);
+  const h = Math.floor((s % 86400) / 3600);
+  const m = Math.floor((s % 3600) / 60);
+  const sec = s % 60;
+
+  document.getElementById("d").innerText = d;
+  document.getElementById("h").innerText = h;
+  document.getElementById("m").innerText = m;
+  document.getElementById("s").innerText = sec;
+}
+
+setInterval(updateCountdown, 1000);
+updateCountdown();
+
+function openModal(type) {
+  const modal = document.getElementById("modal");
+  const text = document.getElementById("modal-text");
+
+  const content = {
+    info: `
+      <h2>How it works</h2>
+      <p>Join the live YouTube stream and answer questions in your browser.</p>
+      <p>10 rounds, 10 questions each.</p>
+      <p>Points awarded for speed and accuracy.</p>
+    `,
+    rules: `
+      <h2>Rules</h2>
+      <p>1 device per player.</p>
+      <p>Answers must be exact (case-insensitive).</p>
+      <p>No cheating – keep it fun!</p>
+    `,
+    prizes: `
+      <h2>Prizes</h2>
+      <p>1st place: €TBC</p>
+      <p>2nd place: €TBC</p>
+    `,
+    faq: `
+      <h2>FAQ</h2>
+      <p><strong>Do I need YouTube?</strong> No account needed.</p>
+      <p><strong>Can I play abroad?</strong> Yes.</p>
+      <p><strong>Refunds?</strong> Not available.</p>
+    `
+  };
+
+  text.innerHTML = content[type];
+  modal.style.display = "flex";
+}
+
+function closeModal() {
+  document.getElementById("modal").style.display = "none";
+}
+
+</script>
+
 </body>
 </html>
