@@ -3,353 +3,226 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <div class="title">
-  THE KARL PILKINGTON<br>
-  <span class="titleSub">VIRTUAL PUB QUIZ</span>
-</div>
-  .titleSub{
-  display:inline-block;
-  font-size: 0.92em; /* tweak 0.88–1.0 */
-  <meta name="description" content="The Karl Pilkington Virtual Pub Quiz • Live countdown • Tickets €10" />
+  <title>The Karl Pilkington Virtual Pub Quiz</title>
 
-  <!-- Better “cartoony” font -->
+  <!-- Font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      /* Background gradient like your mock */
       --bgTop:#6a2f8f;
       --bgMid:#7b2aa4;
       --bgBot:#ff1aa6;
 
-      --panel:#1e2a2d;
-      --panel2:#202c30;
-
       --btn:#143d95;
       --btnEdge:#0c2c73;
-      --btnGlow: rgba(0,0,0,.35);
 
       --text:#ffffff;
-      --outline:#0b0b0b;
-      --muted: rgba(255,255,255,.75);
-
-      /* Fixed “mock-like” stage width for pixel feel */
-      --stage: 608px;
+      --outline:#000000;
     }
 
     *{ box-sizing:border-box; }
+
     body{
       margin:0;
-      min-height:100vh;
       display:flex;
       justify-content:center;
       background: linear-gradient(180deg, var(--bgTop) 0%, var(--bgMid) 45%, var(--bgBot) 100%);
       color:var(--text);
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      font-family: system-ui, sans-serif;
     }
 
-    /* Centered “poster” stage */
     .stage{
-      width:min(var(--stage), 100%);
-      padding: 22px 18px 28px;
+      width: 600px;
+      max-width: 100%;
+      padding: 20px;
       text-align:center;
     }
 
-    /* Title */
+    /* TITLE */
     .title{
-      font-family: "Luckiest Guy", system-ui, sans-serif;
-      margin: 6px 0 10px;
+      font-family: "Luckiest Guy", cursive;
       font-size: 34px;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      line-height: 1.05;
+      line-height: 1.1;
+      margin-bottom: 10px;
 
-      /* Cartoon outline */
       text-shadow:
         -3px -3px 0 var(--outline),
          3px -3px 0 var(--outline),
         -3px  3px 0 var(--outline),
          3px  3px 0 var(--outline),
-         0px  4px 0 rgba(0,0,0,.25);
+         0px  4px 0 rgba(0,0,0,.3);
     }
 
-    /* Artwork */
-    .art{
-      width: 560px;           /* tuned to match mock spacing */
-      max-width: 100%;
-      height: auto;
+    .titleSub{
+      font-size: 0.85em;
       display:block;
-      margin: 6px auto 14px;
-      filter: drop-shadow(0 16px 22px rgba(0,0,0,.35));
     }
 
-    /* Countdown bar container */
+    /* IMAGE */
+    .art{
+      width: 100%;
+      max-width: 560px;
+      margin: 10px auto 15px;
+      display:block;
+    }
+
+    /* COUNTDOWN */
     .countWrap{
-      width: 430px;           /* matches your mock’s compact timer */
+      width: 420px;
       max-width: 100%;
-      margin: 0 auto 22px;
-      padding: 10px 10px;
-      border-radius: 14px;
-      background: rgba(0,0,0,.18);
-      backdrop-filter: blur(6px);
+      margin: 0 auto 20px;
+      padding: 10px;
+      border-radius: 12px;
+      background: rgba(0,0,0,.2);
     }
 
     .countGrid{
       display:grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
+      grid-template-columns: repeat(4,1fr);
+      gap:10px;
     }
 
     .tile{
-      background: linear-gradient(180deg, rgba(32,44,48,.98), rgba(20,27,29,.98));
-      border-radius: 12px;
-      padding: 12px 8px 10px;
-      box-shadow: 0 10px 16px rgba(0,0,0,.28);
-      border: 1px solid rgba(255,255,255,.12);
+      background:#1e2a2d;
+      border-radius:10px;
+      padding:10px;
     }
 
     .num{
-      font-family: system-ui, sans-serif;
-      font-weight: 1000;
-      font-size: 26px;
-      line-height:1;
+      font-size:24px;
+      font-weight:bold;
     }
 
     .lbl{
-      margin-top: 6px;
-      font-size: 12px;
-      color: rgba(255,255,255,.82);
+      font-size:12px;
     }
 
-    /* Buttons */
+    /* BUTTONS */
     .btnRow{
-      margin-top: 6px;
       display:flex;
       justify-content:center;
-      gap: 18px;
-      flex-wrap: wrap;
+      gap:20px;
+      flex-wrap:wrap;
     }
 
     .btn{
-      font-family: "Luckiest Guy", system-ui, sans-serif;
-      min-width: 170px;
-      padding: 16px 18px;
-      border-radius: 22px;
-      background: var(--btn);
-      border: 0;
-      cursor:pointer;
+      font-family:"Luckiest Guy", cursive;
+      font-size:18px;
+      padding:15px 20px;
+      border-radius:20px;
+      background:var(--btn);
+      color:#fff;
       text-decoration:none;
-      color: var(--text);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      font-size: 18px;
+      border:none;
+      cursor:pointer;
 
-      /* 3D pop */
       box-shadow:
-        0 10px 0 var(--btnEdge),
-        0 22px 34px rgba(0,0,0,.25);
+        0 8px 0 var(--btnEdge),
+        0 18px 25px rgba(0,0,0,.3);
 
-      /* Outline */
       text-shadow:
         -2px -2px 0 var(--outline),
          2px -2px 0 var(--outline),
         -2px  2px 0 var(--outline),
          2px  2px 0 var(--outline);
-      user-select:none;
-    }
-
-    .btn:hover{
-      filter: brightness(1.06);
     }
 
     .btn:active{
       transform: translateY(4px);
       box-shadow:
-        0 6px 0 var(--btnEdge),
-        0 14px 22px rgba(0,0,0,.22);
+        0 4px 0 var(--btnEdge),
+        0 10px 15px rgba(0,0,0,.3);
     }
 
     .foot{
-      margin-top: 16px;
+      margin-top: 15px;
       font-size: 12px;
-      color: var(--muted);
-    }
-
-    /* Modal */
-    .modalBack{
-      position:fixed;
-      inset:0;
-      display:none;
-      align-items:center;
-      justify-content:center;
-      padding:18px;
-      background: rgba(0,0,0,.65);
-      z-index: 50;
-    }
-    .modal{
-      width: min(560px, 100%);
-      border-radius: 18px;
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(18,18,24,.96);
-      box-shadow: 0 26px 60px rgba(0,0,0,.55);
-      overflow:hidden;
-      text-align:left;
-    }
-    .modalHead{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      padding: 14px 16px;
-      border-bottom: 1px solid rgba(255,255,255,.10);
-      font-weight: 1000;
-      font-family: "Luckiest Guy", system-ui, sans-serif;
-      letter-spacing: .4px;
-    }
-    .modalBody{
-      padding: 16px;
-      color: rgba(255,255,255,.86);
-      line-height: 1.55;
-      font-size: 14.5px;
-    }
-    .xbtn{
-      border: 0;
-      cursor:pointer;
-      background: rgba(255,255,255,.10);
-      color: #fff;
-      padding: 8px 10px;
-      border-radius: 12px;
-      font-weight: 900;
-    }
-
-    @media (max-width:420px){
-      .title{ font-size: 26px; }
-      .btn{ min-width: 150px; font-size: 16px; padding: 14px 14px; }
-      .num{ font-size: 22px; }
+      opacity: .8;
     }
   </style>
 </head>
 
 <body>
-  <main class="stage">
-    THE KARL PILKINGTON<br>
-  <span class="titleSub">VIRTUAL PUB QUIZ</span>
-</div>
-  .titleSub{
-  display:inline-block;
-  font-size: 0.92em; /* tweak 0.88–1.0 */
 
+  <div class="stage">
 
-    <!-- Upload your exact artwork to the repo root and name it art.png -->
-    <img class="art" src="art.png" alt="Quiz artwork" />
+    <!-- UPDATED TITLE -->
+    <div class="title">
+      THE KARL PILKINGTON<br>
+      <span class="titleSub">VIRTUAL PUB QUIZ</span>
+    </div>
 
-    <section class="countWrap" aria-label="Countdown to quiz">
+    <!-- IMAGE -->
+    <img src="art.png" class="art">
+
+    <!-- COUNTDOWN -->
+    <div class="countWrap">
       <div class="countGrid">
         <div class="tile"><div class="num" id="days">0</div><div class="lbl">Days</div></div>
         <div class="tile"><div class="num" id="hours">00</div><div class="lbl">Hours</div></div>
         <div class="tile"><div class="num" id="mins">00</div><div class="lbl">Minutes</div></div>
         <div class="tile"><div class="num" id="secs">00</div><div class="lbl">Seconds</div></div>
       </div>
-    </section>
+    </div>
 
+    <!-- BUTTONS -->
     <div class="btnRow">
-      <a class="btn" href="https://buy.stripe.com/4gMfZicZvahgb1bgW2b3q0" target="_blank" rel="noreferrer">BUY TICKET</a>
-      <button class="btn" onclick="openModal('info')">INFO</button>
-      <button class="btn" onclick="openModal('prizes')">PRIZES</button>
+      <a class="btn" href="https://buy.stripe.com/4gMfZicZvahgb1bgW2b3q0" target="_blank">BUY TICKET</a>
+      <button class="btn">INFO</button>
+      <button class="btn">PRIZES</button>
     </div>
 
-    <div class="foot">Mon 1 June 2026 • 9:00pm (Dublin time) • €10 per person</div>
-  </main>
-
-  <!-- Modal -->
-  <div class="modalBack" id="modalBack" role="dialog" aria-modal="true">
-    <div class="modal">
-      <div class="modalHead">
-        <div id="modalTitle">Title</div>
-        <button class="xbtn" onclick="closeModal()">Close</button>
-      </div>
-      <div class="modalBody" id="modalBody"></div>
+    <div class="foot">
+      Mon 1 June 2026 • 9:00pm Dublin • €10 per person
     </div>
+
   </div>
 
+  <!-- COUNTDOWN SCRIPT -->
   <script>
-    // Countdown target: Mon 1 June 2026, 9:00pm Dublin time (Ireland is UTC+1 in June)
-    const EVENT_ISO = "2026-06-01T21:00:00+01:00";
-    const eventDate = new Date(EVENT_ISO);
+    const eventDate = new Date("2026-06-01T21:00:00+01:00");
 
-    const elDays = document.getElementById("days");
-    const elHours = document.getElementById("hours");
-    const elMins = document.getElementById("mins");
-    const elSecs = document.getElementById("secs");
-
-    const pad2 = (n) => String(n).padStart(2, "0");
-
-    function tick(){
+    function updateCountdown(){
       const now = new Date();
-      let diff = eventDate.getTime() - now.getTime();
-      if (diff < 0) diff = 0;
+      let diff = eventDate - now;
+      if(diff < 0) diff = 0;
 
-      const totalSec = Math.floor(diff / 1000);
-      const days = Math.floor(totalSec / 86400);
-      const hours = Math.floor((totalSec % 86400) / 3600);
-      const mins = Math.floor((totalSec % 3600) / 60);
-      const secs = totalSec % 60;
+      const d = Math.floor(diff/1000/60/60/24);
+      const h = Math.floor(diff/1000/60/60)%24;
+      const m = Math.floor(diff/1000/60)%60;
+      const s = Math.floor(diff/1000)%60;
 
-      elDays.textContent = String(days);
-      elHours.textContent = pad2(hours);
-      elMins.textContent = pad2(mins);
-      elSecs.textContent = pad2(secs);
+      document.getElementById("days").innerText = d;
+      document.getElementById("hours").innerText = String(h).padStart(2,'0');
+      document.getElementById("mins").innerText = String(m).padStart(2,'0');
+      document.getElementById("secs").innerText = String(s).padStart(2,'0');
     }
-    tick();
-    setInterval(tick, 1000);
 
-    // Modals
-    const modalBack = document.getElementById("modalBack");
-    const modalTitle = document.getElementById("modalTitle");
-    const modalBody = document.getElementById("modalBody");
-
-    const content = {
-      info: {
-        title: "INFO",
-        body: `
-          <p><strong>Live online pub quiz</strong> — watch on YouTube and answer in your browser.</p>
-          <ul>
-            <li>10 rounds × 10 questions (100 total)</li>
-            <li>30 seconds per question</li>
-            <li>Mostly typed answers (one multiple-choice round)</li>
-            <li>Case-insensitive exact matching</li>
-            <li>Points for speed + accuracy</li>
-            <li>Leaderboard shown between rounds</li>
-            <li>One device per ticket</li>
-          </ul>
-          <p>We’ll email the livestream link 1 hour before the event.</p>
-        `
-      },
-      prizes: {
-        title: "PRIZES",
-        body: `
-          <p>Add your prizes here (edit anytime):</p>
-          <ul>
-            <li>1st place: €TBC</li>
-            <li>2nd place: €TBC</li>
-            <li>Bonus: €TBC</li>
-          </ul>
-        `
-      }
-    };
-
-    function openModal(key){
-      modalTitle.textContent = content[key].title;
-      modalBody.innerHTML = content[key].body;
-      modalBack.style.display = "flex";
-    }
-    function closeModal(){
-      modalBack.style.display = "none";
-    }
-    modalBack.addEventListener("click", (e) => {
-      if (e.target.id === "modalBack") closeModal();
-    });
+    updateCountdown();
+    setInterval(updateCountdown,1000);
   </script>
+
 </body>
 </html>
+👍 After you paste
+
+Click Commit changes
+
+Wait ~10 seconds
+
+Refresh your site
+
+If it still doesn’t update
+
+Hard refresh your browser:
+
+Mac: Cmd + Shift + R
+
+Windows: Ctrl + Shift + R
+
+If you want next, I can:
+👉 Make the title look exactly like a logo (bigger + tighter spacing)
+👉 Or animate it slightly for a nicer effect
