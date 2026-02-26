@@ -1,16 +1,765 @@
-<div id="info" class="modal">
-  <div class="modal-content">
-    <span class="close">×</span>
-    <h2>Information</h2>
-    <ul>
-      <li>★ Get your ticket and join the live YouTube stream from anywhere in the world.</li>
-      <li>★ 10 rounds, 10 questions.</li>
-      <li>★ Event will run for roughly 60 - 80 minutes.</li>
-      <li>★ Points awarded for speed and accuracy.</li>
-      <li>★ Questions will be based only on the Ricky Gervais Show and Xfm show featuring Karl.</li>
-      <li>★ Cash prizes for the top 3 places.</li>
-    </ul>
-  </div>
-</div>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>The Karl Pilkington Virtual Pub Quiz</title>
+  <meta name="description" content="Live online pub quiz • Speed + accuracy • 10 rounds • Mon 1 June 2026 • 9:00pm Dublin" />
 
-<!-- Other existing content of index.html -->
+  <!-- Open Graph / Social Preview (Feature 6) -->
+  <meta property="og:title" content="The Karl Pilkington Virtual Pub Quiz" />
+  <meta property="og:description" content="Live online pub quiz • Speed + accuracy • 10 rounds • Mon 1 June 2026 • 9:00pm Dublin" />
+  <meta property="og:type" content="website" />
+  <!-- Optional: add an image URL later (recommended 1200x630) -->
+  <!-- <meta property="og:image" content="https://YOURDOMAIN/og-image.png" /> -->
+  <meta property="og:locale" content="en_IE" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="The Karl Pilkington Virtual Pub Quiz" />
+  <meta name="twitter:description" content="Live online pub quiz • Speed + accuracy • 10 rounds • Mon 1 June 2026 • 9:00pm Dublin" />
+
+  <!-- Optional Analytics (Feature 9) - replace GA_MEASUREMENT_ID or delete this block -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    // If you don’t use GA, set GA_MEASUREMENT_ID to empty and we’ll no-op below
+    const GA_ID = "GA_MEASUREMENT_ID";
+    if (GA_ID && GA_ID !== "GA_MEASUREMENT_ID") {
+      gtag('js', new Date());
+      gtag('config', GA_ID);
+    }
+    function track(eventName, params){
+      if (GA_ID && GA_ID !== "GA_MEASUREMENT_ID") {
+        gtag('event', eventName, params || {});
+      }
+    }
+  </script>
+
+  <style>
+    :root{
+      --bg:#070a12;
+      --panel:rgba(255,255,255,.06);
+      --panel2:rgba(255,255,255,.09);
+      --border:rgba(255,255,255,.14);
+      --text:#eef2ff;
+      --muted:rgba(238,242,255,.72);
+      --accent:#a855f7;
+      --accent2:#22c55e;
+      --warn:#f59e0b;
+      --danger:#ef4444;
+      --shadow:0 18px 55px rgba(0,0,0,.55);
+      --r:18px;
+      --max:1040px;
+      --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:var(--font);
+      color:var(--text);
+      background:
+        radial-gradient(1100px 700px at 20% 0%, rgba(168,85,247,.30), transparent 55%),
+        radial-gradient(900px 650px at 85% 10%, rgba(34,197,94,.18), transparent 60%),
+        radial-gradient(900px 650px at 50% 110%, rgba(59,130,246,.15), transparent 60%),
+        var(--bg);
+      min-height:100vh;
+    }
+    a{color:inherit}
+    .wrap{max-width:var(--max); margin:0 auto; padding:26px 18px 120px;}
+    .topbar{display:flex; justify-content:space-between; align-items:center; gap:12px;}
+    .brand{display:flex; align-items:center; gap:12px;}
+    .logo{
+      width:44px;height:44px;border-radius:14px;
+      background:linear-gradient(135deg, rgba(168,85,247,.95), rgba(34,197,94,.85));
+      box-shadow:var(--shadow);
+    }
+    .brand h1{font-size:16px;margin:0;font-weight:900; letter-spacing:.2px;}
+    .brand p{margin:0; font-size:12px; color:var(--muted); font-weight:700;}
+
+    .pill{
+      padding:10px 12px;
+      border-radius:999px;
+      border:1px solid var(--border);
+      background:rgba(255,255,255,.06);
+      color:var(--muted);
+      font-size:13px;
+      backdrop-filter: blur(10px);
+    }
+
+    .hero{
+      margin-top:22px;
+      display:grid;
+      grid-template-columns: 1.25fr .9fr;
+      gap:16px;
+    }
+    @media(max-width:900px){.hero{grid-template-columns:1fr}}
+
+    .card{
+      border-radius:var(--r);
+      border:1px solid var(--border);
+      background:var(--panel);
+      box-shadow:var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .heroL{padding:22px;}
+    .heroL h2{
+      margin:0 0 10px;
+      font-size: clamp(30px, 4.2vw, 48px);
+      line-height:1.05;
+      letter-spacing:.2px;
+    }
+    .heroL .sub{
+      margin:0 0 14px;
+      color:var(--muted);
+      line-height:1.5;
+      max-width:70ch;
+      font-size:15.5px;
+    }
+    .tags{display:flex; flex-wrap:wrap; gap:10px; margin:12px 0 0;}
+    .tag{
+      padding:9px 11px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.16);
+      background:rgba(255,255,255,.06);
+      font-size:13px;
+      color:var(--muted);
+      font-weight:700;
+    }
+
+    .ctaRow{display:flex; flex-wrap:wrap; gap:10px; margin-top:16px;}
+    .btn{
+      display:inline-flex; align-items:center; gap:10px;
+      padding:12px 14px;
+      border-radius:14px;
+      text-decoration:none;
+      font-weight:900;
+      font-size:14px;
+      border:0;
+      cursor:pointer;
+      user-select:none;
+    }
+    .btnPrimary{
+      background: linear-gradient(135deg, rgba(168,85,247,1), rgba(59,130,246,1));
+      color:white;
+    }
+    .btnPrimary:hover{filter:brightness(1.06)}
+    .btnGhost{
+      background:rgba(255,255,255,.10);
+      border:1px solid rgba(255,255,255,.18);
+      color:var(--text);
+    }
+    .btnGhost:hover{background:rgba(255,255,255,.14)}
+    .btnSmall{padding:10px 12px; border-radius:12px; font-size:13px; font-weight:900;}
+
+    .heroR{padding:18px; display:flex; flex-direction:column; gap:12px;}
+    .countTitle{font-weight:900; letter-spacing:.2px;}
+    .countGrid{display:grid; grid-template-columns: repeat(4, 1fr); gap:10px;}
+    .tile{
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(255,255,255,.07);
+      padding:14px 12px;
+      text-align:center;
+    }
+    .num{font-size:26px; font-weight:1000;}
+    .lbl{font-size:12px; color:var(--muted); margin-top:3px;}
+    .note{
+      border-radius:14px;
+      border:1px dashed rgba(255,255,255,.18);
+      background:rgba(255,255,255,.06);
+      padding:12px 14px;
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.4;
+    }
+    .stats{
+      display:flex; gap:10px; flex-wrap:wrap;
+    }
+    .stat{
+      flex:1 1 160px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(255,255,255,.06);
+      padding:12px 14px;
+    }
+    .stat .k{font-size:12px; color:var(--muted); font-weight:800;}
+    .stat .v{font-size:18px; font-weight:1000; margin-top:3px;}
+
+    .section{margin-top:16px; padding:18px;}
+    .gridIcons{
+      display:grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap:10px;
+      margin-top:12px;
+    }
+    @media(max-width:900px){.gridIcons{grid-template-columns: repeat(2, 1fr);}}
+    .iconCard{
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(255,255,255,.07);
+      padding:14px 14px;
+      display:flex; gap:12px; align-items:flex-start;
+      cursor:pointer;
+      transition: transform .08s ease;
+    }
+    .iconCard:hover{transform: translateY(-1px); background:rgba(255,255,255,.09);}
+    .ic{
+      width:38px;height:38px;border-radius:14px;
+      display:grid; place-items:center;
+      background:rgba(168,85,247,.20);
+      border:1px solid rgba(168,85,247,.25);
+      font-weight:1000;
+    }
+    .ict .t{font-weight:1000;}
+    .ict .d{margin-top:2px; font-size:12px; color:var(--muted); line-height:1.35;}
+
+    /* FAQ accordion (Feature 7) */
+    details{
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(255,255,255,.06);
+      padding:12px 14px;
+    }
+    details + details{margin-top:10px;}
+    summary{cursor:pointer; font-weight:900;}
+    details p{margin:10px 0 0; color:var(--muted); line-height:1.5; font-size:13.5px;}
+
+    /* Modal (for icon content) */
+    .modalBack{
+      position:fixed; inset:0;
+      display:none;
+      align-items:center; justify-content:center;
+      padding:18px;
+      background:rgba(0,0,0,.65);
+      z-index:50;
+    }
+    .modal{
+      width:min(720px, 100%);
+      border-radius:20px;
+      border:1px solid rgba(255,255,255,.18);
+      background:rgba(12,16,30,.92);
+      box-shadow:var(--shadow);
+      backdrop-filter: blur(14px);
+      overflow:hidden;
+    }
+    .modalHead{
+      padding:14px 16px;
+      display:flex; align-items:center; justify-content:space-between;
+      border-bottom:1px solid rgba(255,255,255,.12);
+      font-weight:1000;
+    }
+    .modalBody{padding:16px; color:var(--muted); line-height:1.55;}
+    .xbtn{
+      background:rgba(255,255,255,.10);
+      border:1px solid rgba(255,255,255,.16);
+      color:var(--text);
+      padding:8px 10px;
+      border-radius:12px;
+      font-weight:1000;
+      cursor:pointer;
+    }
+
+    /* Email capture (Feature 1) */
+    .emailRow{display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-top:10px;}
+    input[type="email"]{
+      width:min(420px, 100%);
+      padding:12px 14px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.16);
+      background:rgba(255,255,255,.07);
+      color:var(--text);
+      outline:none;
+      font-size:14px;
+    }
+    input::placeholder{color:rgba(238,242,255,.55);}
+
+    /* Sticky buy bar (Feature 4) */
+    .sticky{
+      position:fixed;
+      left:0; right:0; bottom:0;
+      padding:12px;
+      background: rgba(7,10,18,.75);
+      border-top:1px solid rgba(255,255,255,.12);
+      backdrop-filter: blur(14px);
+      z-index:40;
+    }
+    .stickyIn{
+      max-width:var(--max);
+      margin:0 auto;
+      display:flex;
+      gap:10px;
+      align-items:center;
+      justify-content:space-between;
+      padding:0 6px;
+      flex-wrap:wrap;
+    }
+    .stickyLeft{display:flex; flex-direction:column; gap:2px;}
+    .stickyLeft .a{font-weight:1000;}
+    .stickyLeft .b{font-size:12px; color:var(--muted);}
+    .stickyBtns{display:flex; gap:10px; flex-wrap:wrap; align-items:center;}
+    .tiny{font-size:12px; color:rgba(238,242,255,.55); margin-top:18px;}
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <h1>The Karl Pilkington Virtual Pub Quiz</h1>
+          <p>Live-hosted • Play from anywhere • Speed + accuracy</p>
+        </div>
+      </div>
+      <div class="pill" id="eventPill">Mon 1 Jun 2026 • 9:00pm (Dublin)</div>
+    </div>
+
+    <div class="hero">
+      <section class="card heroL">
+        <h2>Monday night. One device. Pure chaos.</h2>
+        <p class="sub">
+          Ten rounds. Ten questions each. Mostly typed answers (one multiple choice round).
+          Points are awarded for <strong>accuracy</strong> and <strong>speed</strong>. Watch on YouTube, answer here.
+        </p>
+
+        <div class="tags">
+          <div class="tag">✅ 10 rounds × 10</div>
+          <div class="tag">✅ 30s per question</div>
+          <div class="tag">✅ Case-insensitive answers</div>
+          <div class="tag">✅ Leaderboard between rounds</div>
+        </div>
+
+        <div class="ctaRow">
+          <!-- Replace with your Stripe EUR Payment Link -->
+          <a class="btn btnPrimary" id="payBtn" href="YOUR_STRIPE_EUR_LINK_HERE" target="_blank" rel="noreferrer">
+            🎟️ Pay €10
+          </a>
+          <button class="btn btnGhost" onclick="openModal('how')">How it works</button>
+          <button class="btn btnGhost" onclick="document.getElementById('emailBox').scrollIntoView({behavior:'smooth'})">
+            Get reminders
+          </button>
+        </div>
+
+        <!-- Clickable icons (Feature 3) -->
+        <div class="gridIcons">
+          <div class="iconCard" onclick="openModal('format')">
+            <div class="ic">🍺</div>
+            <div class="ict">
+              <div class="t">Format</div>
+              <div class="d">Rounds, timing, answers</div>
+            </div>
+          </div>
+          <div class="iconCard" onclick="openModal('rules')">
+            <div class="ic">⚖️</div>
+            <div class="ict">
+              <div class="t">Rules</div>
+              <div class="d">1 device, fair play</div>
+            </div>
+          </div>
+          <div class="iconCard" onclick="openModal('prizes')">
+            <div class="ic">🏆</div>
+            <div class="ict">
+              <div class="t">Prizes</div>
+              <div class="d">What you can win</div>
+            </div>
+          </div>
+          <div class="iconCard" onclick="openModal('contact')">
+            <div class="ic">✉️</div>
+            <div class="ict">
+              <div class="t">Contact</div>
+              <div class="d">Questions / help</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <aside class="card heroR">
+        <div>
+          <div class="countTitle" id="countTitle">Countdown to kick-off</div>
+          <div class="countGrid" aria-label="countdown">
+            <div class="tile"><div class="num" id="d">0</div><div class="lbl">Days</div></div>
+            <div class="tile"><div class="num" id="h">00</div><div class="lbl">Hours</div></div>
+            <div class="tile"><div class="num" id="m">00</div><div class="lbl">Minutes</div></div>
+            <div class="tile"><div class="num" id="s">00</div><div class="lbl">Seconds</div></div>
+          </div>
+        </div>
+
+        <div class="note" id="liveNote">
+          After purchase, you’ll receive confirmation by email (setup comes next).
+          We’ll send the YouTube livestream link <strong>1 hour before</strong>.
+        </div>
+
+        <!-- Ticket counter (Feature 10) - counts "Pay" clicks (interest), since Pages has no payment verification -->
+        <div class="stats">
+          <div class="stat">
+            <div class="k">People heading to checkout</div>
+            <div class="v"><span id="clickCount">—</span></div>
+          </div>
+          <div class="stat">
+            <div class="k">Event time</div>
+            <div class="v">Mon • 9:00pm</div>
+          </div>
+        </div>
+
+        <!-- Add to Calendar (Feature 2) -->
+        <section class="card section" style="background:rgba(255,255,255,.06); box-shadow:none;">
+          <div style="font-weight:1000; margin-bottom:10px;">Add to calendar</div>
+          <div class="ctaRow" style="margin-top:0;">
+            <a class="btn btnGhost btnSmall" id="calGoogle" target="_blank" rel="noreferrer">Google</a>
+            <a class="btn btnGhost btnSmall" id="calOutlook" target="_blank" rel="noreferrer">Outlook</a>
+            <a class="btn btnGhost btnSmall" id="calIcs" download="karl-pub-quiz.ics">Apple/ICS</a>
+          </div>
+          <div style="margin-top:10px; color:var(--muted); font-size:12.5px; line-height:1.4;">
+            Mon 1 June 2026 • 9:00pm Dublin • ~90 minutes
+          </div>
+        </section>
+      </aside>
+    </div>
+
+    <!-- Email capture (Feature 1) -->
+    <section class="card section" id="emailBox">
+      <div style="font-weight:1000;">Get reminders (optional)</div>
+      <div style="color:var(--muted); font-size:13.5px; line-height:1.45; margin-top:6px;">
+        Pop your email in and we’ll remind you before kick-off. (No spam, just quiz updates.)
+      </div>
+
+      <!-- Replace action with your provider endpoint (Formspree/Mailchimp/etc.) -->
+      <form id="emailForm" method="POST" action="YOUR_FORM_ENDPOINT_HERE">
+        <div class="emailRow">
+          <input type="email" name="email" id="email" placeholder="you@example.com" required />
+          <button class="btn btnPrimary" type="submit">Notify me</button>
+          <button class="btn btnGhost" type="button" onclick="copyShareLink()">Copy share link</button>
+        </div>
+        <div id="emailMsg" style="margin-top:10px; color:var(--muted); font-size:13px;"></div>
+      </form>
+    </section>
+
+    <!-- FAQ Accordion (Feature 7) -->
+    <section class="card section">
+      <div style="font-weight:1000; margin-bottom:12px;">FAQ</div>
+
+      <details>
+        <summary>Do I need a YouTube account?</summary>
+        <p>No — you’ll watch the livestream via a link. No account needed.</p>
+      </details>
+
+      <details>
+        <summary>How do answers work?</summary>
+        <p>Mostly typed answers. You’ll see blank squares showing the number of letters. Answers are case-insensitive and must match exactly.</p>
+      </details>
+
+      <details>
+        <summary>Can I play from outside Ireland?</summary>
+        <p>Yes — if you can access the livestream and your internet is stable, you’re good.</p>
+      </details>
+
+      <details>
+        <summary>Is it one device per person?</summary>
+        <p>Yes — one device per ticket. (The quiz platform will enforce this later.)</p>
+      </details>
+
+      <details>
+        <summary>Refund policy?</summary>
+        <p>Set your policy here. (Common approach: no refunds within 24 hours of the event.)</p>
+      </details>
+    </section>
+
+    <div class="tiny">
+      Note: “People heading to checkout” counts clicks (interest), not confirmed purchases — GitHub Pages can’t verify Stripe payments without a backend.
+    </div>
+  </div>
+
+  <!-- Sticky buy bar (Feature 4) -->
+  <div class="sticky">
+    <div class="stickyIn">
+      <div class="stickyLeft">
+        <div class="a">The Karl Pilkington Virtual Pub Quiz</div>
+        <div class="b" id="stickyB">Mon 1 Jun 2026 • 9:00pm Dublin • €10</div>
+      </div>
+      <div class="stickyBtns">
+        <a class="btn btnPrimary" id="payBtn2" href="YOUR_STRIPE_EUR_LINK_HERE" target="_blank" rel="noreferrer">🎟️ Pay €10</a>
+        <button class="btn btnGhost" onclick="document.getElementById('emailBox').scrollIntoView({behavior:'smooth'})">Remind me</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modalBack" id="modalBack" role="dialog" aria-modal="true">
+    <div class="modal">
+      <div class="modalHead">
+        <div id="modalTitle">Title</div>
+        <button class="xbtn" onclick="closeModal()">Close</button>
+      </div>
+      <div class="modalBody" id="modalBody"></div>
+    </div>
+  </div>
+
+  <script>
+    // ====== CONFIG ======
+    const EVENT_ISO = "2026-06-01T21:00:00+01:00"; // Dublin time
+    const EVENT_END_ISO = "2026-06-01T22:30:00+01:00"; // approx duration
+    const YOUTUBE_URL = "YOUTUBE_URL_HERE"; // leave placeholder until ready
+
+    // CountAPI namespace/key for click counter (Feature 10)
+    // Replace namespace if you want: must be unique-ish
+    const COUNT_NS = "karl-pub-quiz-2026";
+    const COUNT_KEY = "checkout_clicks_eur";
+
+    const eventDate = new Date(EVENT_ISO);
+    const endDate = new Date(EVENT_END_ISO);
+
+    // Display pill
+    document.getElementById("eventPill").textContent =
+      eventDate.toLocaleString("en-IE", { weekday:"short", year:"numeric", month:"short", day:"numeric", hour:"2-digit", minute:"2-digit" }) + " (Dublin)";
+
+    // ====== COUNTDOWN (Feature 5) ======
+    function tick(){
+      const now = new Date();
+      let diff = eventDate - now;
+
+      if (diff <= 0){
+        // live mode
+        document.getElementById("countTitle").textContent = "We’re live (or about to be)…";
+        document.getElementById("d").textContent = "0";
+        document.getElementById("h").textContent = "00";
+        document.getElementById("m").textContent = "00";
+        document.getElementById("s").textContent = "00";
+
+        const note = document.getElementById("liveNote");
+        if (YOUTUBE_URL && YOUTUBE_URL !== "YOUTUBE_URL_HERE") {
+          note.innerHTML = `
+            <strong>We’re live now.</strong><br/>
+            Open the livestream: <a href="${YOUTUBE_URL}" target="_blank" rel="noreferrer">${YOUTUBE_URL}</a>
+          `;
+        } else {
+          note.innerHTML = `<strong>We’re live now.</strong> Livestream link will be emailed 1 hour before kick-off.`;
+        }
+        return;
+      }
+
+      const sec = Math.floor(diff/1000);
+      const days = Math.floor(sec / 86400);
+      const hours = Math.floor((sec % 86400) / 3600);
+      const mins = Math.floor((sec % 3600) / 60);
+      const secs = sec % 60;
+
+      document.getElementById("d").textContent = String(days);
+      document.getElementById("h").textContent = String(hours).padStart(2,"0");
+      document.getElementById("m").textContent = String(mins).padStart(2,"0");
+      document.getElementById("s").textContent = String(secs).padStart(2,"0");
+    }
+    tick();
+    setInterval(tick, 1000);
+
+    // ====== ADD TO CALENDAR (Feature 2) ======
+    // Google Calendar link uses UTC times. Dublin in June is UTC+1, so subtract 1 hour for UTC.
+    // Event starts 21:00 Dublin => 20:00 UTC.
+    function pad(n){ return String(n).padStart(2,"0"); }
+    function toUTCCompact(date){
+      const y = date.getUTCFullYear();
+      const m = pad(date.getUTCMonth()+1);
+      const d = pad(date.getUTCDate());
+      const hh = pad(date.getUTCHours());
+      const mm = pad(date.getUTCMinutes());
+      const ss = pad(date.getUTCSeconds());
+      return `${y}${m}${d}T${hh}${mm}${ss}Z`;
+    }
+
+    const title = "The Karl Pilkington Virtual Pub Quiz";
+    const details = "Live online pub quiz. Watch on YouTube, answer in-browser. €10 entry.";
+    const location = "Online";
+
+    const startUTC = toUTCCompact(eventDate);
+    const endUTC = toUTCCompact(endDate);
+
+    const googleUrl =
+      `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}` +
+      `&details=${encodeURIComponent(details)}` +
+      `&location=${encodeURIComponent(location)}` +
+      `&dates=${startUTC}/${endUTC}`;
+
+    const outlookUrl =
+      `https://outlook.live.com/calendar/0/deeplink/compose?subject=${encodeURIComponent(title)}` +
+      `&body=${encodeURIComponent(details)}` +
+      `&startdt=${encodeURIComponent(eventDate.toISOString())}` +
+      `&enddt=${encodeURIComponent(endDate.toISOString())}` +
+      `&location=${encodeURIComponent(location)}`;
+
+    document.getElementById("calGoogle").href = googleUrl;
+    document.getElementById("calOutlook").href = outlookUrl;
+
+    // ICS file (Apple/ICS)
+    const ics = [
+      "BEGIN:VCALENDAR",
+      "VERSION:2.0",
+      "PRODID:-//Karl Quiz//EN",
+      "BEGIN:VEVENT",
+      `UID:${Date.now()}@karlquiz`,
+      `DTSTAMP:${startUTC}`,
+      `DTSTART:${startUTC}`,
+      `DTEND:${endUTC}`,
+      `SUMMARY:${title}`,
+      `DESCRIPTION:${details.replace(/\n/g,"\\n")}`,
+      `LOCATION:${location}`,
+      "END:VEVENT",
+      "END:VCALENDAR"
+    ].join("\r\n");
+
+    const icsBlob = new Blob([ics], { type: "text/calendar;charset=utf-8" });
+    const icsUrl = URL.createObjectURL(icsBlob);
+    document.getElementById("calIcs").href = icsUrl;
+
+    // ====== MODALS (Feature 3 improved content) ======
+    const modalBack = document.getElementById("modalBack");
+    const modalTitle = document.getElementById("modalTitle");
+    const modalBody = document.getElementById("modalBody");
+
+    const modalContent = {
+      how: {
+        title: "How it works",
+        body: `
+          <ol>
+            <li>Buy a €10 ticket (one per person).</li>
+            <li>We email the livestream link 1 hour before.</li>
+            <li>Watch the YouTube stream and answer here in-browser.</li>
+            <li>10 rounds × 10 questions. 30s per question.</li>
+            <li>Points for accuracy + speed. Leaderboard shown between rounds.</li>
+          </ol>
+        `
+      },
+      format: {
+        title: "Format",
+        body: `
+          <ul>
+            <li><strong>10 rounds</strong> of <strong>10 questions</strong> (100 total).</li>
+            <li>Mostly <strong>typed answers</strong>, with <strong>one multiple-choice round</strong>.</li>
+            <li>Typed answers show blank squares for letter count.</li>
+            <li>Answers are <strong>case-insensitive</strong> and must match exactly.</li>
+          </ul>
+        `
+      },
+      rules: {
+        title: "Rules",
+        body: `
+          <ul>
+            <li><strong>1 device per person</strong> (one ticket = one player).</li>
+            <li>Keep it fun — no harassment, no nonsense.</li>
+            <li>Host decisions are final (even if you disagree and you’re absolutely sure you’re right).</li>
+          </ul>
+        `
+      },
+      prizes: {
+        title: "Prizes",
+        body: `
+          <p>Add your prize details here when ready:</p>
+          <ul>
+            <li>1st place: €TBC</li>
+            <li>2nd place: €TBC</li>
+            <li>Bonus: best team name / best Karl impression (optional)</li>
+          </ul>
+        `
+      },
+      contact: {
+        title: "Contact",
+        body: `
+          <p>Add your contact details here:</p>
+          <ul>
+            <li>Email: <strong>you@example.com</strong></li>
+            <li>Instagram: <strong>@yourhandle</strong></li>
+          </ul>
+        `
+      }
+    };
+
+    function openModal(key){
+      modalTitle.textContent = modalContent[key].title;
+      modalBody.innerHTML = modalContent[key].body;
+      modalBack.style.display = "flex";
+    }
+    function closeModal(){
+      modalBack.style.display = "none";
+    }
+    modalBack.addEventListener("click", (e) => {
+      if (e.target.id === "modalBack") closeModal();
+    });
+
+    // ====== Stripe click tracking + counter (Features 9 + 10) ======
+    async function getCount(){
+      try{
+        const res = await fetch(`https://api.countapi.xyz/get/${COUNT_NS}/${COUNT_KEY}`);
+        const j = await res.json();
+        document.getElementById("clickCount").textContent = j.value ?? "0";
+      } catch(e){
+        document.getElementById("clickCount").textContent = "—";
+      }
+    }
+
+    async function incrementCount(){
+      try{
+        const res = await fetch(`https://api.countapi.xyz/hit/${COUNT_NS}/${COUNT_KEY}`);
+        const j = await res.json();
+        document.getElementById("clickCount").textContent = j.value ?? "0";
+      } catch(e){}
+    }
+
+    function attachPayTracking(id){
+      const a = document.getElementById(id);
+      if (!a) return;
+      a.addEventListener("click", async () => {
+        track("begin_checkout", { currency: "EUR", value: 10 });
+        await incrementCount();
+      });
+    }
+    attachPayTracking("payBtn");
+    attachPayTracking("payBtn2");
+    getCount();
+
+    // ====== Email capture (Feature 1) ======
+    // Works best with Formspree or Mailchimp.
+    // If you haven't set a real endpoint yet, the submit will likely fail — we still show a friendly message.
+    const form = document.getElementById("emailForm");
+    const emailMsg = document.getElementById("emailMsg");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const email = document.getElementById("email").value.trim();
+      if (!email || !email.includes("@")) {
+        emailMsg.textContent = "Please enter a valid email.";
+        return;
+      }
+
+      track("sign_up", { method: "homepage_email" });
+
+      const action = form.getAttribute("action");
+      if (!action || action === "YOUR_FORM_ENDPOINT_HERE") {
+        emailMsg.textContent = "Saved locally for now. Add a form endpoint to actually collect emails.";
+        return;
+      }
+
+      try{
+        const fd = new FormData(form);
+        const res = await fetch(action, { method: "POST", body: fd, headers: { "Accept":"application/json" } });
+        if (res.ok) {
+          emailMsg.textContent = "Nice one — you’re on the reminder list ✅";
+          form.reset();
+        } else {
+          emailMsg.textContent = "Couldn’t submit right now — try again in a moment.";
+        }
+      } catch(err){
+        emailMsg.textContent = "Couldn’t submit right now — try again in a moment.";
+      }
+    });
+
+    // Share helper
+    function copyShareLink(){
+      const url = window.location.href;
+      navigator.clipboard.writeText(url);
+      track("share", { method: "copy_link" });
+      emailMsg.textContent = "Link copied ✅ Send it to the group chat.";
+      setTimeout(()=>{ emailMsg.textContent = ""; }, 3500);
+    }
+  </script>
+</body>
+</html>
