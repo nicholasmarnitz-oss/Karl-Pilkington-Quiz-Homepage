@@ -4,80 +4,89 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>The Karl Pilkington Virtual Pub Quiz</title>
-  <meta name="description" content="The Karl Pilkington Virtual Pub Quiz • Live countdown • Buy ticket" />
+  <meta name="description" content="The Karl Pilkington Virtual Pub Quiz • Live countdown • Tickets €10" />
+
+  <!-- Better “cartoony” font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      --bg1:#5b2a82;
-      --bg2:#c0189a;
-      --bg3:#ff2aa6;
+      /* Background gradient like your mock */
+      --bgTop:#6a2f8f;
+      --bgMid:#7b2aa4;
+      --bgBot:#ff1aa6;
+
+      --panel:#1e2a2d;
+      --panel2:#202c30;
 
       --btn:#143d95;
-      --btnShadow: rgba(0,0,0,.35);
+      --btnEdge:#0c2c73;
+      --btnGlow: rgba(0,0,0,.35);
 
-      --countBg:#1e2a2d;
-      --countTile:#202c30;
-      --countText:#f4f6ff;
-      --muted:#cfd6ff;
+      --text:#ffffff;
+      --outline:#0b0b0b;
+      --muted: rgba(255,255,255,.75);
 
-      --white:#ffffff;
-      --outline:#111111;
-
-      --radius: 26px;
-      --font: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      /* Fixed “mock-like” stage width for pixel feel */
+      --stage: 608px;
     }
 
     *{ box-sizing:border-box; }
     body{
       margin:0;
-      font-family: var(--font);
-      color: var(--white);
       min-height:100vh;
       display:flex;
-      align-items:flex-start;
       justify-content:center;
-      background: linear-gradient(180deg, var(--bg1) 0%, var(--bg2) 45%, var(--bg3) 100%);
+      background: linear-gradient(180deg, var(--bgTop) 0%, var(--bgMid) 45%, var(--bgBot) 100%);
+      color:var(--text);
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
     }
 
-    .wrap{
-      width:min(900px, 100%);
-      padding: 28px 18px 46px;
+    /* Centered “poster” stage */
+    .stage{
+      width:min(var(--stage), 100%);
+      padding: 22px 18px 28px;
       text-align:center;
     }
 
-    /* Title: chunky + outlined look */
+    /* Title */
     .title{
-      margin: 6px 0 18px;
-      font-weight: 1000;
+      font-family: "Luckiest Guy", system-ui, sans-serif;
+      margin: 6px 0 10px;
+      font-size: 34px;
       letter-spacing: 1px;
-      font-size: clamp(20px, 3.4vw, 36px);
       text-transform: uppercase;
+      line-height: 1.05;
 
-      /* Outline effect */
+      /* Cartoon outline */
       text-shadow:
-        -2px -2px 0 var(--outline),
-         2px -2px 0 var(--outline),
-        -2px  2px 0 var(--outline),
-         2px  2px 0 var(--outline),
-         0px  3px 0 rgba(0,0,0,.35);
+        -3px -3px 0 var(--outline),
+         3px -3px 0 var(--outline),
+        -3px  3px 0 var(--outline),
+         3px  3px 0 var(--outline),
+         0px  4px 0 rgba(0,0,0,.25);
     }
 
-    .heroImg{
-      width: min(620px, 92vw);
+    /* Artwork */
+    .art{
+      width: 560px;           /* tuned to match mock spacing */
+      max-width: 100%;
       height: auto;
       display:block;
-      margin: 0 auto 18px;
-      image-rendering: auto;
-      filter: drop-shadow(0 18px 28px rgba(0,0,0,.35));
+      margin: 6px auto 14px;
+      filter: drop-shadow(0 16px 22px rgba(0,0,0,.35));
     }
 
-    /* Countdown bar */
-    .countBar{
-      width: min(520px, 92vw);
+    /* Countdown bar container */
+    .countWrap{
+      width: 430px;           /* matches your mock’s compact timer */
+      max-width: 100%;
       margin: 0 auto 22px;
-      padding: 12px;
-      border-radius: 18px;
-      background: rgba(0,0,0,.20);
+      padding: 10px 10px;
+      border-radius: 14px;
+      background: rgba(0,0,0,.18);
       backdrop-filter: blur(6px);
     }
 
@@ -87,85 +96,98 @@
       gap: 10px;
     }
 
-    .countTile{
-      background: linear-gradient(180deg, rgba(32,44,48,.95), rgba(18,24,26,.95));
-      border-radius: 16px;
+    .tile{
+      background: linear-gradient(180deg, rgba(32,44,48,.98), rgba(20,27,29,.98));
+      border-radius: 12px;
       padding: 12px 8px 10px;
-      box-shadow: 0 10px 18px rgba(0,0,0,.30);
+      box-shadow: 0 10px 16px rgba(0,0,0,.28);
       border: 1px solid rgba(255,255,255,.12);
     }
 
-    .countNum{
-      font-size: 26px;
+    .num{
+      font-family: system-ui, sans-serif;
       font-weight: 1000;
-      color: var(--countText);
-      line-height: 1;
+      font-size: 26px;
+      line-height:1;
     }
 
-    .countLabel{
+    .lbl{
       margin-top: 6px;
       font-size: 12px;
-      color: rgba(244,246,255,.85);
-      letter-spacing: .2px;
+      color: rgba(255,255,255,.82);
     }
 
-    /* Buttons row */
+    /* Buttons */
     .btnRow{
+      margin-top: 6px;
       display:flex;
-      gap: 18px;
       justify-content:center;
+      gap: 18px;
       flex-wrap: wrap;
-      margin-top: 10px;
     }
 
     .btn{
-      min-width: 180px;
+      font-family: "Luckiest Guy", system-ui, sans-serif;
+      min-width: 170px;
       padding: 16px 18px;
       border-radius: 22px;
       background: var(--btn);
-      color: #fff;
-      font-weight: 1000;
-      font-size: 16px;
-      text-transform: uppercase;
-      letter-spacing: .6px;
-      border: none;
+      border: 0;
       cursor:pointer;
-      box-shadow: 0 10px 0 rgba(0,0,0,.25), 0 18px 34px rgba(0,0,0,.25);
       text-decoration:none;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
+      color: var(--text);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-size: 18px;
 
-      /* Outline like the screenshot */
+      /* 3D pop */
+      box-shadow:
+        0 10px 0 var(--btnEdge),
+        0 22px 34px rgba(0,0,0,.25);
+
+      /* Outline */
       text-shadow:
         -2px -2px 0 var(--outline),
          2px -2px 0 var(--outline),
         -2px  2px 0 var(--outline),
          2px  2px 0 var(--outline);
+      user-select:none;
+    }
+
+    .btn:hover{
+      filter: brightness(1.06);
     }
 
     .btn:active{
-      transform: translateY(2px);
-      box-shadow: 0 7px 0 rgba(0,0,0,.25), 0 12px 24px rgba(0,0,0,.22);
+      transform: translateY(4px);
+      box-shadow:
+        0 6px 0 var(--btnEdge),
+        0 14px 22px rgba(0,0,0,.22);
+    }
+
+    .foot{
+      margin-top: 16px;
+      font-size: 12px;
+      color: var(--muted);
     }
 
     /* Modal */
     .modalBack{
-      position: fixed;
-      inset: 0;
+      position:fixed;
+      inset:0;
       display:none;
       align-items:center;
       justify-content:center;
-      padding: 18px;
+      padding:18px;
       background: rgba(0,0,0,.65);
-      z-index: 10;
+      z-index: 50;
     }
     .modal{
-      width: min(620px, 100%);
-      background: rgba(18,18,24,.95);
-      border: 1px solid rgba(255,255,255,.12);
+      width: min(560px, 100%);
       border-radius: 18px;
-      box-shadow: 0 30px 70px rgba(0,0,0,.55);
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(18,18,24,.96);
+      box-shadow: 0 26px 60px rgba(0,0,0,.55);
       overflow:hidden;
       text-align:left;
     }
@@ -174,78 +196,59 @@
       justify-content:space-between;
       align-items:center;
       padding: 14px 16px;
-      font-weight: 1000;
-      letter-spacing:.2px;
       border-bottom: 1px solid rgba(255,255,255,.10);
+      font-weight: 1000;
+      font-family: "Luckiest Guy", system-ui, sans-serif;
+      letter-spacing: .4px;
     }
     .modalBody{
       padding: 16px;
-      color: rgba(255,255,255,.88);
-      line-height: 1.5;
+      color: rgba(255,255,255,.86);
+      line-height: 1.55;
       font-size: 14.5px;
     }
     .xbtn{
-      border: none;
+      border: 0;
       cursor:pointer;
       background: rgba(255,255,255,.10);
       color: #fff;
-      font-weight: 1000;
       padding: 8px 10px;
       border-radius: 12px;
+      font-weight: 900;
     }
 
-    .small{
-      margin-top: 18px;
-      font-size: 12px;
-      color: rgba(255,255,255,.70);
-    }
-
-    @media (max-width:520px){
-      .btn{ min-width: 150px; padding: 14px 14px; }
-      .countNum{ font-size: 22px; }
+    @media (max-width:420px){
+      .title{ font-size: 26px; }
+      .btn{ min-width: 150px; font-size: 16px; padding: 14px 14px; }
+      .num{ font-size: 22px; }
     }
   </style>
 </head>
 
 <body>
-  <div class="wrap">
+  <main class="stage">
     <div class="title">THE KARL PILKINGTON VIRTUAL PUB QUIZ</div>
 
-    <!-- Put your image in the repo as hero.png (same folder as index.html) -->
-    <img class="heroImg" src="hero.png" alt="The Karl Pilkington Virtual Pub Quiz artwork" />
+    <!-- Upload your exact artwork to the repo root and name it art.png -->
+    <img class="art" src="art.png" alt="Quiz artwork" />
 
-    <div class="countBar" aria-label="Countdown timer">
+    <section class="countWrap" aria-label="Countdown to quiz">
       <div class="countGrid">
-        <div class="countTile">
-          <div class="countNum" id="days">0</div>
-          <div class="countLabel">Days</div>
-        </div>
-        <div class="countTile">
-          <div class="countNum" id="hours">00</div>
-          <div class="countLabel">Hours</div>
-        </div>
-        <div class="countTile">
-          <div class="countNum" id="mins">00</div>
-          <div class="countLabel">Minutes</div>
-        </div>
-        <div class="countTile">
-          <div class="countNum" id="secs">00</div>
-          <div class="countLabel">Seconds</div>
-        </div>
+        <div class="tile"><div class="num" id="days">0</div><div class="lbl">Days</div></div>
+        <div class="tile"><div class="num" id="hours">00</div><div class="lbl">Hours</div></div>
+        <div class="tile"><div class="num" id="mins">00</div><div class="lbl">Minutes</div></div>
+        <div class="tile"><div class="num" id="secs">00</div><div class="lbl">Seconds</div></div>
       </div>
-    </div>
+    </section>
 
     <div class="btnRow">
-      <!-- Replace with your Stripe Payment Link -->
-      <a class="btn" id="buyBtn" href="YOUR_STRIPE_LINK_HERE" target="_blank" rel="noreferrer">BUY TICKET</a>
+      <a class="btn" href="https://buy.stripe.com/4gMfZicZvahgb1bgW2b3q0" target="_blank" rel="noreferrer">BUY TICKET</a>
       <button class="btn" onclick="openModal('info')">INFO</button>
       <button class="btn" onclick="openModal('prizes')">PRIZES</button>
     </div>
 
-    <div class="small">
-      Mon 1 June 2026 • 9:00pm (Dublin time) • €10 per person
-    </div>
-  </div>
+    <div class="foot">Mon 1 June 2026 • 9:00pm (Dublin time) • €10 per person</div>
+  </main>
 
   <!-- Modal -->
   <div class="modalBack" id="modalBack" role="dialog" aria-modal="true">
@@ -259,7 +262,7 @@
   </div>
 
   <script>
-    // Event: Mon, 1 June 2026, 9:00pm Dublin time (Irish Summer Time is +01)
+    // Countdown target: Mon 1 June 2026, 9:00pm Dublin time (Ireland is UTC+1 in June)
     const EVENT_ISO = "2026-06-01T21:00:00+01:00";
     const eventDate = new Date(EVENT_ISO);
 
@@ -268,7 +271,7 @@
     const elMins = document.getElementById("mins");
     const elSecs = document.getElementById("secs");
 
-    function pad2(n){ return String(n).padStart(2, "0"); }
+    const pad2 = (n) => String(n).padStart(2, "0");
 
     function tick(){
       const now = new Date();
@@ -286,38 +289,39 @@
       elMins.textContent = pad2(mins);
       elSecs.textContent = pad2(secs);
     }
-
     tick();
     setInterval(tick, 1000);
 
-    // Modal content
+    // Modals
     const modalBack = document.getElementById("modalBack");
     const modalTitle = document.getElementById("modalTitle");
     const modalBody = document.getElementById("modalBody");
 
     const content = {
       info: {
-        title: "Info",
+        title: "INFO",
         body: `
           <p><strong>Live online pub quiz</strong> — watch on YouTube and answer in your browser.</p>
           <ul>
-            <li>10 rounds × 10 questions</li>
+            <li>10 rounds × 10 questions (100 total)</li>
             <li>30 seconds per question</li>
             <li>Mostly typed answers (one multiple-choice round)</li>
+            <li>Case-insensitive exact matching</li>
             <li>Points for speed + accuracy</li>
             <li>Leaderboard shown between rounds</li>
             <li>One device per ticket</li>
           </ul>
+          <p>We’ll email the livestream link 1 hour before the event.</p>
         `
       },
       prizes: {
-        title: "Prizes",
+        title: "PRIZES",
         body: `
-          <p>Add your prizes here (you can edit this anytime):</p>
+          <p>Add your prizes here (edit anytime):</p>
           <ul>
             <li>1st place: €TBC</li>
             <li>2nd place: €TBC</li>
-            <li>Bonus prize: €TBC</li>
+            <li>Bonus: €TBC</li>
           </ul>
         `
       }
