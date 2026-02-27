@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Info — The Karl Pilkington Virtual Pub Quiz</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bgTop:#6a2f8f;
+      --bgMid:#7b2aa4;
+      --bgBot:#ff1aa6;
+
+      --btn:#143d95;
+      --btnEdge:#0c2c73;
+
+      --text:#ffffff;
+      --outline:#000000;
+      --muted: rgba(255,255,255,.82);
+
+      --stage: 760px;
+    }
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      min-height:100vh;
+      display:flex;
+      justify-content:center;
+      background: linear-gradient(180deg, var(--bgTop) 0%, var(--bgMid) 45%, var(--bgBot) 100%);
+      color:var(--text);
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+    .stage{
+      width:min(var(--stage), 100%);
+      padding: 22px 18px 34px;
+      text-align:center;
+    }
+    .title{
+      font-family:"Luckiest Guy", system-ui, sans-serif;
+      margin: 6px 0 14px;
+      font-size: 38px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      line-height: 1.05;
+      text-shadow:
+        -3px -3px 0 var(--outline),
+         3px -3px 0 var(--outline),
+        -3px  3px 0 var(--outline),
+         3px  3px 0 var(--outline),
+         0px  4px 0 rgba(0,0,0,.25);
+    }
+    .panel{
+      text-align:left;
+      max-width: 720px;
+      margin: 0 auto;
+      background: rgba(0,0,0,.18);
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 16px;
+      padding: 16px 16px;
+      backdrop-filter: blur(6px);
+      box-shadow: 0 18px 34px rgba(0,0,0,.20);
+    }
+    .panel h2{
+      font-family:"Luckiest Guy", system-ui, sans-serif;
+      font-weight: 800;
+      letter-spacing:.6px;
+      margin: 8px 0 8px;
+      text-transform: uppercase;
+    }
+    .panel p, .panel li{
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 14.8px;
+    }
+    .panel ul{ margin: 8px 0 0 18px; }
+    .btnRow{
+      margin-top: 16px;
+      display:flex;
+      justify-content:center;
+      gap: 14px;
+      flex-wrap:wrap;
+    }
+    .btn{
+      font-family: "Luckiest Guy", system-ui, sans-serif;
+      min-width: 170px;
+      padding: 14px 16px;
+      border-radius: 22px;
+      background: var(--btn);
+      border: 0;
+      cursor:pointer;
+      text-decoration:none;
+      color: var(--text);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-size: 16px;
+      box-shadow:
+        0 10px 0 var(--btnEdge),
+        0 22px 34px rgba(0,0,0,.25);
+      text-shadow:
+        -2px -2px 0 var(--outline),
+         2px -2px 0 var(--outline),
+        -2px  2px 0 var(--outline),
+         2px  2px 0 var(--outline);
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .btn:active{
+      transform: translateY(4px);
+      box-shadow:
+        0 6px 0 var(--btnEdge),
+        0 14px 22px rgba(0,0,0,.22);
+    }
+  </style>
+</head>
+
+<body>
+  <main class="stage">
+    <div class="title">INFO</div>
+
+    <section class="panel">
+      <h2>Format</h2>
+      <ul>
+        <li>10 rounds × 10 questions (100 total).</li>
+        <li>30 seconds per question.</li>
+        <li>Mostly typed answers, with one multiple-choice round.</li>
+        <li>Answers are <strong>case-insensitive</strong> and must match exactly.</li>
+        <li>Points are awarded for <strong>speed + accuracy</strong>.</li>
+        <li>Leaderboard is shown <strong>between rounds</strong> only.</li>
+      </ul>
+
+      <h2>Rules</h2>
+      <ul>
+        <li><strong>One device per ticket</strong> (one ticket = one player).</li>
+        <li>No spelling variants — I’ve picked unambiguous answers.</li>
+        <li>Keep it fun. Don’t be a maniac.</li>
+        <li>Host decisions are final (even if you’re fuming).</li>
+      </ul>
+
+      <h2>How you’ll join</h2>
+      <ul>
+        <li>You’ll watch via a YouTube livestream link.</li>
+        <li>We’ll send the livestream link <strong>1 hour before</strong> kickoff.</li>
+      </ul>
+    </section>
+
+    <div class="btnRow">
+      <a class="btn" href="index.html">HOME</a>
+      <a class="btn" href="prizes.html">PRIZES</a>
+      <a class="btn" href="https://buy.stripe.com/4gMfZicZvahgb1bgW2b3q0" target="_blank" rel="noopener noreferrer">BUY TICKET</a>
+    </div>
+  </main>
+</body>
+</html>
