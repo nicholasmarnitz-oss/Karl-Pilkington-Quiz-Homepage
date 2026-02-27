@@ -3,212 +3,635 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Karl Pilkington Virtual Pub Quiz</title>
+  <title>The Karl Pilkington Virtual Pub Quiz</title>
+  <meta name="description" content="The Karl Pilkington Virtual Pub Quiz — live online pub quiz with countdown and tickets." />
+
+  <!-- Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
 
   <style>
-    body {
-      margin: 0;
-      font-family: system-ui, sans-serif;
-      background: #0f172a;
-      color: white;
-      text-align: center;
-      padding: 20px;
+    :root{
+      --bgTop:#6a2f8f;
+      --bgMid:#7b2aa4;
+      --bgBot:#ff1aa6;
+
+      --btn:#143d95;
+      --btnEdge:#0c2c73;
+
+      --text:#ffffff;
+      --outline:#000000;
+      --muted: rgba(255,255,255,.78);
+
+      --stage: 608px;
     }
 
-    .container {
-      max-width: 900px;
-      margin: auto;
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      min-height:100vh;
+      display:flex;
+      justify-content:center;
+      background: linear-gradient(180deg, var(--bgTop) 0%, var(--bgMid) 45%, var(--bgBot) 100%);
+      color:var(--text);
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
     }
 
-    h1 {
-      font-size: 42px;
-      margin-bottom: 10px;
+    .stage{
+      width:min(var(--stage), 100%);
+      padding: 22px 18px 30px;
+      text-align:center;
     }
 
-    p {
-      opacity: 0.8;
+    .title{
+      font-family: "Luckiest Guy", system-ui, sans-serif;
+      margin: 6px 0 10px;
+      font-size: 34px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      line-height: 1.05;
+      text-shadow:
+        -3px -3px 0 var(--outline),
+         3px -3px 0 var(--outline),
+        -3px  3px 0 var(--outline),
+         3px  3px 0 var(--outline),
+         0px  4px 0 rgba(0,0,0,.25);
+    }
+    .titleSub{
+      display:inline-block;
+      font-size: 0.85em;
     }
 
-    .countdown {
-      display: flex;
-      justify-content: center;
-      gap: 15px;
-      margin: 30px 0;
-      flex-wrap: wrap;
+    .art{
+      width: 560px;
+      max-width: 100%;
+      height: auto;
+      display:block;
+      margin: 6px auto 14px;
+      filter: drop-shadow(0 16px 22px rgba(0,0,0,.35));
     }
 
-    .box {
-      background: #1e293b;
-      padding: 15px;
-      border-radius: 10px;
-      min-width: 70px;
+    .countWrap{
+      width: 430px;
+      max-width: 100%;
+      margin: 0 auto 20px;
+      padding: 10px;
+      border-radius: 14px;
+      background: rgba(0,0,0,.18);
+      backdrop-filter: blur(6px);
     }
 
-    .num {
-      font-size: 28px;
-      font-weight: bold;
-    }
-
-    .btn {
-      display: inline-block;
-      margin: 10px;
-      padding: 14px 20px;
-      border-radius: 10px;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    .primary {
-      background: #8b5cf6;
-      color: white;
-    }
-
-    .secondary {
-      background: white;
-      color: black;
-    }
-
-    .icons {
-      margin-top: 30px;
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
+    .countGrid{
+      display:grid;
+      grid-template-columns: repeat(4, 1fr);
       gap: 10px;
     }
 
-    .icon {
-      background: #1e293b;
-      padding: 15px;
-      border-radius: 10px;
-      cursor: pointer;
+    .tile{
+      background: linear-gradient(180deg, rgba(32,44,48,.98), rgba(20,27,29,.98));
+      border-radius: 12px;
+      padding: 12px 8px 10px;
+      box-shadow: 0 10px 16px rgba(0,0,0,.28);
+      border: 1px solid rgba(255,255,255,.12);
     }
 
-    .modal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.7);
-      justify-content: center;
-      align-items: center;
+    .num{
+      font-weight: 1000;
+      font-size: 26px;
+      line-height:1;
+    }
+    .lbl{
+      margin-top: 6px;
+      font-size: 12px;
+      color: rgba(255,255,255,.82);
     }
 
-    .modal-content {
-      background: #1e293b;
-      padding: 20px;
-      border-radius: 10px;
-      max-width: 500px;
-      text-align: left;
+    .btnRow{
+      margin-top: 6px;
+      display:flex;
+      justify-content:center;
+      gap: 18px;
+      flex-wrap: wrap;
     }
 
-    .close {
-      float: right;
-      cursor: pointer;
+    .btn{
+      font-family: "Luckiest Guy", system-ui, sans-serif;
+      min-width: 170px;
+      padding: 16px 18px;
+      border-radius: 22px;
+      background: var(--btn);
+      border: 0;
+      cursor:pointer;
+      text-decoration:none;
+      color: var(--text);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-size: 18px;
+      box-shadow:
+        0 10px 0 var(--btnEdge),
+        0 22px 34px rgba(0,0,0,.25);
+      text-shadow:
+        -2px -2px 0 var(--outline),
+         2px -2px 0 var(--outline),
+        -2px  2px 0 var(--outline),
+         2px  2px 0 var(--outline);
+      user-select:none;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
     }
 
+    .btn:hover{ filter: brightness(1.06); }
+    .btn:active{
+      transform: translateY(4px);
+      box-shadow:
+        0 6px 0 var(--btnEdge),
+        0 14px 22px rgba(0,0,0,.22);
+    }
+
+    .shareRow{
+      margin-top: 14px;
+      display:flex;
+      justify-content:center;
+      gap:12px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+    .shareNote{
+      font-size: 12px;
+      color: var(--muted);
+      max-width: 520px;
+      margin: 0 auto;
+      line-height: 1.4;
+    }
+    .toast{
+      margin-top:10px;
+      font-size: 12px;
+      color: rgba(255,255,255,.9);
+      min-height: 16px;
+    }
+
+    .foot{
+      margin-top: 14px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    @media (max-width:420px){
+      .title{ font-size: 28px; }
+      .btn{ min-width: 150px; font-size: 16px; padding: 14px 14px; }
+      .num{ font-size: 22px; }
+    }
   </style>
 </head>
 
 <body>
+  <main class="stage">
+    <div class="title">
+      THE KARL PILKINGTON<br>
+      <span class="titleSub">VIRTUAL PUB QUIZ</span>
+    </div>
 
-<div class="container">
+    <img class="art" src="art.png" alt="The Karl Pilkington Virtual Pub Quiz artwork" />
 
-  <h1>Karl Pilkington Virtual Pub Quiz</h1>
-  <p>Live online quiz • Speed + accuracy • Play from anywhere</p>
+    <section class="countWrap" aria-label="Countdown to quiz">
+      <div class="countGrid">
+        <div class="tile"><div class="num" id="days">0</div><div class="lbl">Days</div></div>
+        <div class="tile"><div class="num" id="hours">00</div><div class="lbl">Hours</div></div>
+        <div class="tile"><div class="num" id="mins">00</div><div class="lbl">Minutes</div></div>
+        <div class="tile"><div class="num" id="secs">00</div><div class="lbl">Seconds</div></div>
+      </div>
+    </section>
 
-  <div class="countdown">
-    <div class="box"><div class="num" id="d">0</div><div>Days</div></div>
-    <div class="box"><div class="num" id="h">0</div><div>Hours</div></div>
-    <div class="box"><div class="num" id="m">0</div><div>Minutes</div></div>
-    <div class="box"><div class="num" id="s">0</div><div>Seconds</div></div>
-  </div>
+    <div class="btnRow">
+      <a
+        class="btn"
+        href="https://buy.stripe.com/4gMfZicZvahgb1bgW2b3q0"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        BUY TICKET
+      </a>
 
-  <p><strong>Monday, 1 June 2026 • 9:00pm (Dublin)</strong></p>
+      <a class="btn" href="info.html">INFO</a>
+      <a class="btn" href="prizes.html">PRIZES</a>
+    </div>
 
-  <div>
-    <a class="btn primary" href="YOUR_EUR_STRIPE_LINK" target="_blank">🎟️ Pay €10</a>
-    <a class="btn secondary" href="YOUR_GBP_STRIPE_LINK" target="_blank">🎟️ Pay £10</a>
-  </div>
+    <div class="shareRow">
+      <button class="btn" type="button" onclick="copyShare()">
+        SHARE LINK
+      </button>
+    </div>
+    <div class="shareNote">
+      Copy the link and sling it into the group chat. The more people who join, the bigger the prize pot (probably).
+    </div>
+    <div class="toast" id="toast"></div>
 
-  <div class="icons">
-    <div class="icon" onclick="openModal('info')">ℹ️ Info</div>
-    <div class="icon" onclick="openModal('rules')">📜 Rules</div>
-    <div class="icon" onclick="openModal('prizes')">🏆 Prizes</div>
-    <div class="icon" onclick="openModal('faq')">❓ FAQ</div>
-  </div>
+    <div class="foot">
+      Mon 1 June 2026 • 9:00pm (Dublin time) • €10 per person
+    </div>
+  </main>
 
-</div>
+  <script>
+    // Countdown target: Mon 1 June 2026, 9:00pm Dublin time (Ireland is UTC+1 in June)
+    const EVENT_ISO = "2026-06-01T21:00:00+01:00";
+    const eventDate = new Date(EVENT_ISO);
 
-<!-- Modal -->
-<div class="modal" id="modal">
-  <div class="modal-content">
-    <span class="close" onclick="closeModal()">✖</span>
-    <div id="modal-text"></div>
-  </div>
-</div>
+    const elDays = document.getElementById("days");
+    const elHours = document.getElementById("hours");
+    const elMins = document.getElementById("mins");
+    const elSecs = document.getElementById("secs");
 
-<script>
+    const pad2 = (n) => String(n).padStart(2, "0");
 
-const eventDate = new Date("2026-06-01T21:00:00+01:00");
+    function tick(){
+      const now = new Date();
+      let diff = eventDate.getTime() - now.getTime();
+      if (diff < 0) diff = 0;
 
-function updateCountdown() {
-  const now = new Date();
-  let diff = eventDate - now;
+      const totalSec = Math.floor(diff / 1000);
+      const days = Math.floor(totalSec / 86400);
+      const hours = Math.floor((totalSec % 86400) / 3600);
+      const mins = Math.floor((totalSec % 3600) / 60);
+      const secs = totalSec % 60;
 
-  if (diff < 0) diff = 0;
+      elDays.textContent = String(days);
+      elHours.textContent = pad2(hours);
+      elMins.textContent = pad2(mins);
+      elSecs.textContent = pad2(secs);
+    }
+    tick();
+    setInterval(tick, 1000);
 
-  const s = Math.floor(diff / 1000);
-  const d = Math.floor(s / 86400);
-  const h = Math.floor((s % 86400) / 3600);
-  const m = Math.floor((s % 3600) / 60);
-  const sec = s % 60;
+    // Share button
+    function copyShare(){
+      const url = window.location.href.replace(/index\.html$/,'');
+      const toast = document.getElementById("toast");
 
-  document.getElementById("d").innerText = d;
-  document.getElementById("h").innerText = h;
-  document.getElementById("m").innerText = m;
-  document.getElementById("s").innerText = sec;
-}
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(() => {
+          toast.textContent = "Link copied ✅ Now go annoy the group chat.";
+          setTimeout(()=> toast.textContent = "", 3500);
+        }).catch(() => {
+          fallbackCopy(url);
+        });
+      } else {
+        fallbackCopy(url);
+      }
+    }
 
-setInterval(updateCountdown, 1000);
-updateCountdown();
-
-function openModal(type) {
-  const modal = document.getElementById("modal");
-  const text = document.getElementById("modal-text");
-
-  const content = {
-    info: `
-      <h2>How it works</h2>
-      <p>Join the live YouTube stream and answer questions in your browser.</p>
-      <p>10 rounds, 10 questions each.</p>
-      <p>Points awarded for speed and accuracy.</p>
-    `,
-    rules: `
-      <h2>Rules</h2>
-      <p>1 device per player.</p>
-      <p>Answers must be exact (case-insensitive).</p>
-      <p>No cheating – keep it fun!</p>
-    `,
-    prizes: `
-      <h2>Prizes</h2>
-      <p>1st place: €TBC</p>
-      <p>2nd place: €TBC</p>
-    `,
-    faq: `
-      <h2>FAQ</h2>
-      <p><strong>Do I need YouTube?</strong> No account needed.</p>
-      <p><strong>Can I play abroad?</strong> Yes.</p>
-      <p><strong>Refunds?</strong> Not available.</p>
-    `
-  };
-
-  text.innerHTML = content[type];
-  modal.style.display = "flex";
-}
-
-function closeModal() {
-  document.getElementById("modal").style.display = "none";
-}
-
-</script>
-
+    function fallbackCopy(text){
+      const toast = document.getElementById("toast");
+      const ta = document.createElement("textarea");
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      try {
+        document.execCommand("copy");
+        toast.textContent = "Link copied ✅ Now go annoy the group chat.";
+      } catch (e) {
+        toast.textContent = "Couldn’t auto-copy. Copy this: " + text;
+      }
+      document.body.removeChild(ta);
+      setTimeout(()=> toast.textContent = "", 4500);
+    }
+  </script>
 </body>
 </html>
+2) info.html (Rules/Info page)
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Info — The Karl Pilkington Virtual Pub Quiz</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bgTop:#6a2f8f;
+      --bgMid:#7b2aa4;
+      --bgBot:#ff1aa6;
+
+      --btn:#143d95;
+      --btnEdge:#0c2c73;
+
+      --text:#ffffff;
+      --outline:#000000;
+      --muted: rgba(255,255,255,.82);
+
+      --stage: 760px;
+    }
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      min-height:100vh;
+      display:flex;
+      justify-content:center;
+      background: linear-gradient(180deg, var(--bgTop) 0%, var(--bgMid) 45%, var(--bgBot) 100%);
+      color:var(--text);
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+    .stage{
+      width:min(var(--stage), 100%);
+      padding: 22px 18px 34px;
+      text-align:center;
+    }
+    .title{
+      font-family:"Luckiest Guy", system-ui, sans-serif;
+      margin: 6px 0 14px;
+      font-size: 38px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      line-height: 1.05;
+      text-shadow:
+        -3px -3px 0 var(--outline),
+         3px -3px 0 var(--outline),
+        -3px  3px 0 var(--outline),
+         3px  3px 0 var(--outline),
+         0px  4px 0 rgba(0,0,0,.25);
+    }
+    .panel{
+      text-align:left;
+      max-width: 720px;
+      margin: 0 auto;
+      background: rgba(0,0,0,.18);
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 16px;
+      padding: 16px 16px;
+      backdrop-filter: blur(6px);
+      box-shadow: 0 18px 34px rgba(0,0,0,.20);
+    }
+    .panel h2{
+      font-family:"Luckiest Guy", system-ui, sans-serif;
+      font-weight: 800;
+      letter-spacing:.6px;
+      margin: 8px 0 8px;
+      text-transform: uppercase;
+    }
+    .panel p, .panel li{
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 14.8px;
+    }
+    .panel ul{ margin: 8px 0 0 18px; }
+    .btnRow{
+      margin-top: 16px;
+      display:flex;
+      justify-content:center;
+      gap: 14px;
+      flex-wrap:wrap;
+    }
+    .btn{
+      font-family: "Luckiest Guy", system-ui, sans-serif;
+      min-width: 170px;
+      padding: 14px 16px;
+      border-radius: 22px;
+      background: var(--btn);
+      border: 0;
+      cursor:pointer;
+      text-decoration:none;
+      color: var(--text);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-size: 16px;
+      box-shadow:
+        0 10px 0 var(--btnEdge),
+        0 22px 34px rgba(0,0,0,.25);
+      text-shadow:
+        -2px -2px 0 var(--outline),
+         2px -2px 0 var(--outline),
+        -2px  2px 0 var(--outline),
+         2px  2px 0 var(--outline);
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .btn:active{
+      transform: translateY(4px);
+      box-shadow:
+        0 6px 0 var(--btnEdge),
+        0 14px 22px rgba(0,0,0,.22);
+    }
+  </style>
+</head>
+
+<body>
+  <main class="stage">
+    <div class="title">INFO</div>
+
+    <section class="panel">
+      <h2>Format</h2>
+      <ul>
+        <li>10 rounds × 10 questions (100 total).</li>
+        <li>30 seconds per question.</li>
+        <li>Mostly typed answers, with one multiple-choice round.</li>
+        <li>Answers are <strong>case-insensitive</strong> and must match exactly.</li>
+        <li>Points are awarded for <strong>speed + accuracy</strong>.</li>
+        <li>Leaderboard is shown <strong>between rounds</strong> only.</li>
+      </ul>
+
+      <h2>Rules</h2>
+      <ul>
+        <li><strong>One device per ticket</strong> (one ticket = one player).</li>
+        <li>No spelling variants — I’ve picked unambiguous answers.</li>
+        <li>Keep it fun. Don’t be a maniac.</li>
+        <li>Host decisions are final (even if you’re fuming).</li>
+      </ul>
+
+      <h2>How you’ll join</h2>
+      <ul>
+        <li>You’ll watch via a YouTube livestream link.</li>
+        <li>We’ll send the livestream link <strong>1 hour before</strong> kickoff.</li>
+      </ul>
+    </section>
+
+    <div class="btnRow">
+      <a class="btn" href="index.html">HOME</a>
+      <a class="btn" href="prizes.html">PRIZES</a>
+      <a class="btn" href="https://buy.stripe.com/4gMfZicZvahgb1bgW2b3q0" target="_blank" rel="noopener noreferrer">BUY TICKET</a>
+    </div>
+  </main>
+</body>
+</html>
+3) prizes.html (Prizes page, title + copy exactly as requested)
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Prizes — The Karl Pilkington Virtual Pub Quiz</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bgTop:#6a2f8f;
+      --bgMid:#7b2aa4;
+      --bgBot:#ff1aa6;
+
+      --btn:#143d95;
+      --btnEdge:#0c2c73;
+
+      --text:#ffffff;
+      --outline:#000000;
+      --muted: rgba(255,255,255,.82);
+
+      --stage: 760px;
+    }
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      min-height:100vh;
+      display:flex;
+      justify-content:center;
+      background: linear-gradient(180deg, var(--bgTop) 0%, var(--bgMid) 45%, var(--bgBot) 100%);
+      color:var(--text);
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+    .stage{
+      width:min(var(--stage), 100%);
+      padding: 22px 18px 34px;
+      text-align:center;
+    }
+    .title{
+      font-family:"Luckiest Guy", system-ui, sans-serif;
+      margin: 6px 0 14px;
+      font-size: 42px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      line-height: 1.05;
+      text-shadow:
+        -3px -3px 0 var(--outline),
+         3px -3px 0 var(--outline),
+        -3px  3px 0 var(--outline),
+         3px  3px 0 var(--outline),
+         0px  4px 0 rgba(0,0,0,.25);
+    }
+    .panel{
+      text-align:left;
+      max-width: 720px;
+      margin: 0 auto;
+      background: rgba(0,0,0,.18);
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 16px;
+      padding: 16px 16px;
+      backdrop-filter: blur(6px);
+      box-shadow: 0 18px 34px rgba(0,0,0,.20);
+    }
+    .prize{
+      border-radius: 14px;
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(255,255,255,.12);
+      padding: 14px 14px;
+      margin: 10px 0;
+    }
+    .place{
+      font-family:"Luckiest Guy", system-ui, sans-serif;
+      letter-spacing:.6px;
+      font-size: 20px;
+      margin: 0 0 6px;
+      text-transform: uppercase;
+    }
+    .panel p, .panel li{
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 14.8px;
+      margin: 0;
+    }
+    .small{
+      margin-top: 10px;
+      font-size: 12px;
+      color: rgba(255,255,255,.76);
+      line-height: 1.4;
+    }
+    .btnRow{
+      margin-top: 16px;
+      display:flex;
+      justify-content:center;
+      gap: 14px;
+      flex-wrap:wrap;
+    }
+    .btn{
+      font-family: "Luckiest Guy", system-ui, sans-serif;
+      min-width: 170px;
+      padding: 14px 16px;
+      border-radius: 22px;
+      background: var(--btn);
+      border: 0;
+      cursor:pointer;
+      text-decoration:none;
+      color: var(--text);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-size: 16px;
+      box-shadow:
+        0 10px 0 var(--btnEdge),
+        0 22px 34px rgba(0,0,0,.25);
+      text-shadow:
+        -2px -2px 0 var(--outline),
+         2px -2px 0 var(--outline),
+        -2px  2px 0 var(--outline),
+         2px  2px 0 var(--outline);
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .btn:active{
+      transform: translateY(4px);
+      box-shadow:
+        0 6px 0 var(--btnEdge),
+        0 14px 22px rgba(0,0,0,.22);
+    }
+  </style>
+</head>
+
+<body>
+  <main class="stage">
+    <div class="title">SOME SHITE IN A JIFFY BAG</div>
+
+    <section class="panel">
+      <div class="prize">
+        <div class="place">1st Place</div>
+        <p>Cash Prize (TBC based on attendance), and the film <strong>Ladder 49</strong> on DVD.</p>
+      </div>
+
+      <div class="prize">
+        <div class="place">2nd Place</div>
+        <p>Cash Prize (TBC based on attendance) and <strong>The Best of Inspiral Carpets</strong> on CD.</p>
+      </div>
+
+      <div class="prize">
+        <div class="place">3rd Place</div>
+        <p>Cash Prize (TBC based on attendance) and the film <strong>Children of the Corn</strong> on VHS.</p>
+      </div>
+
+      <div class="small">
+        Cash prizes will be confirmed closer to the date once attendance is clearer.
+      </div>
+    </section>
+
+    <div class="btnRow">
+      <a class="btn" href="index.html">HOME</a>
+      <a class="btn" href="info.html">INFO</a>
+      <a class="btn" href="https://buy.stripe.com/4gMfZicZvahgb1bgW2b3q0" target="_blank" rel="noopener noreferrer">BUY TICKET</a>
+    </div>
+  </main>
+</body>
+</html>
+Quick check after you publish
+
+Homepage: your current URL
+
+Info page should be: .../info.html
+
+Prizes page should be: .../prizes.html
+
+If you want, paste your live link after you add the pages and I’ll sanity-check that everything routes correctly.
