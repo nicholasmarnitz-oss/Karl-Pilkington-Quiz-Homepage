@@ -1,218 +1,172 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>The Karl Pilkington Virtual Pub Quiz</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Karl Pilkington Quiz</title>
 
-  <!-- Font -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background: linear-gradient(to bottom, #5a2d91, #ff0080);
+  color: white;
+}
 
-  <style>
-    :root{
-      --bgTop:#6a2f8f;
-      --bgMid:#7b2aa4;
-      --bgBot:#ff1aa6;
+/* TITLE */
+.title {
+  margin-top: 40px;
+  font-size: 40px;
+  font-weight: bold;
+  text-shadow: 3px 3px 0px black;
+}
 
-      --btn:#143d95;
-      --btnEdge:#0c2c73;
+.titleSub {
+  font-size: 28px;
+}
 
-      --text:#ffffff;
-      --outline:#000000;
-    }
+/* DATE */
+.eventDate {
+  margin-top: 10px;
+  font-size: 20px;
+  color: #ffd700;
+  text-shadow: 2px 2px 0px #000;
+}
 
-    *{ box-sizing:border-box; }
+/* IMAGE */
+.hero img {
+  width: 90%;
+  max-width: 700px;
+  margin-top: 20px;
+}
 
-    body{
-      margin:0;
-      display:flex;
-      justify-content:center;
-      background: linear-gradient(180deg, var(--bgTop) 0%, var(--bgMid) 45%, var(--bgBot) 100%);
-      color:var(--text);
-      font-family: system-ui, sans-serif;
-    }
+/* COUNTDOWN */
+.countdown {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
 
-    .stage{
-      width: 600px;
-      max-width: 100%;
-      padding: 20px;
-      text-align:center;
-    }
+.timeBox {
+  background: rgba(0,0,0,0.6);
+  padding: 15px;
+  border-radius: 10px;
+  width: 70px;
+}
 
-    /* TITLE */
-    .title{
-      font-family: "Luckiest Guy", cursive;
-      font-size: 34px;
-      line-height: 1.1;
-      margin-bottom: 10px;
+.timeBox span {
+  font-size: 22px;
+  font-weight: bold;
+  display: block;
+}
 
-      text-shadow:
-        -3px -3px 0 var(--outline),
-         3px -3px 0 var(--outline),
-        -3px  3px 0 var(--outline),
-         3px  3px 0 var(--outline),
-         0px  4px 0 rgba(0,0,0,.3);
-    }
+/* BUTTONS */
+.buttons {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
 
-    .titleSub{
-      font-size: 0.85em;
-      display:block;
-    }
+.btn {
+  background: #1f3fa6;
+  color: white;
+  padding: 15px 25px;
+  border-radius: 25px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 18px;
+  box-shadow: 0 5px #0d1f66;
+  transition: all 0.2s;
+}
 
-    /* IMAGE */
-    .art{
-      width: 100%;
-      max-width: 560px;
-      margin: 10px auto 15px;
-      display:block;
-    }
+.btn:hover {
+  transform: translateY(-2px);
+}
 
-    /* COUNTDOWN */
-    .countWrap{
-      width: 420px;
-      max-width: 100%;
-      margin: 0 auto 20px;
-      padding: 10px;
-      border-radius: 12px;
-      background: rgba(0,0,0,.2);
-    }
+.btn:active {
+  transform: translateY(3px);
+  box-shadow: 0 2px #0d1f66;
+}
 
-    .countGrid{
-      display:grid;
-      grid-template-columns: repeat(4,1fr);
-      gap:10px;
-    }
+/* SHARE BUTTON */
+.share {
+  margin-top: 30px;
+}
 
-    .tile{
-      background:#1e2a2d;
-      border-radius:10px;
-      padding:10px;
-    }
-
-    .num{
-      font-size:24px;
-      font-weight:bold;
-    }
-
-    .lbl{
-      font-size:12px;
-    }
-
-    /* BUTTONS */
-    .btnRow{
-      display:flex;
-      justify-content:center;
-      gap:20px;
-      flex-wrap:wrap;
-    }
-
-    .btn{
-      font-family:"Luckiest Guy", cursive;
-      font-size:18px;
-      padding:15px 20px;
-      border-radius:20px;
-      background:var(--btn);
-      color:#fff;
-      text-decoration:none;
-      border:none;
-      cursor:pointer;
-
-      box-shadow:
-        0 8px 0 var(--btnEdge),
-        0 18px 25px rgba(0,0,0,.3);
-
-      text-shadow:
-        -2px -2px 0 var(--outline),
-         2px -2px 0 var(--outline),
-        -2px  2px 0 var(--outline),
-         2px  2px 0 var(--outline);
-    }
-
-    .btn:active{
-      transform: translateY(4px);
-      box-shadow:
-        0 4px 0 var(--btnEdge),
-        0 10px 15px rgba(0,0,0,.3);
-    }
-
-    .foot{
-      margin-top: 15px;
-      font-size: 12px;
-      opacity: .8;
-    }
-  </style>
+</style>
 </head>
 
 <body>
 
-  <div class="stage">
-
-    <!-- UPDATED TITLE -->
-    <div class="title">
-      THE KARL PILKINGTON<br>
-      <span class="titleSub">VIRTUAL PUB QUIZ</span>
-    </div>
-
-    <!-- IMAGE -->
-    <img src="art.png" class="art">
-
-    <!-- COUNTDOWN -->
-    <div class="countWrap">
-      <div class="countGrid">
-        <div class="tile"><div class="num" id="days">0</div><div class="lbl">Days</div></div>
-        <div class="tile"><div class="num" id="hours">00</div><div class="lbl">Hours</div></div>
-        <div class="tile"><div class="num" id="mins">00</div><div class="lbl">Minutes</div></div>
-        <div class="tile"><div class="num" id="secs">00</div><div class="lbl">Seconds</div></div>
-      </div>
-    </div>
-
-    <!-- BUTTONS -->
-<div class="btnRow">
-
-  <a 
-    class="btn"
-    href="https://buy.stripe.com/4gMfZicZvahgb1bgW2b3q01"
-    target="_blank"
-    rel="noopener noreferrer"
-  >
-    BUY TICKET
-  </a>
-
-  <a class="btn" href="./info.html">
-    INFO
-  </a>
-
-  <a class="btn" href="./prizes.html">
-    PRIZES
-  </a>
-
+<div class="title">
+  THE KARL PILKINGTON<br>
+  <span class="titleSub">VIRTUAL PUB QUIZ</span>
+  <div class="eventDate">Monday, 1st June 2026</div>
 </div>
 
-  <!-- COUNTDOWN SCRIPT -->
-  <script>
-    const eventDate = new Date("2026-06-01T21:00:00+01:00");
+<div class="hero">
+  <img src="art.png" alt="Quiz image">
+</div>
 
-    function updateCountdown(){
-      const now = new Date();
-      let diff = eventDate - now;
-      if(diff < 0) diff = 0;
+<div class="countdown">
+  <div class="timeBox"><span id="days">0</span>Days</div>
+  <div class="timeBox"><span id="hours">0</span>Hours</div>
+  <div class="timeBox"><span id="minutes">0</span>Minutes</div>
+  <div class="timeBox"><span id="seconds">0</span>Seconds</div>
+</div>
 
-      const d = Math.floor(diff/1000/60/60/24);
-      const h = Math.floor(diff/1000/60/60)%24;
-      const m = Math.floor(diff/1000/60)%60;
-      const s = Math.floor(diff/1000)%60;
+<div class="buttons">
+  <a class="btn" href="https://buy.stripe.com/4gMfZicZvahgb1bgW2b3q01" target="_blank" rel="noopener noreferrer">BUY TICKET</a>
+  <a class="btn" href="info.html">INFO</a>
+  <a class="btn" href="prizes.html">PRIZES</a>
+</div>
 
-      document.getElementById("days").innerText = d;
-      document.getElementById("hours").innerText = String(h).padStart(2,'0');
-      document.getElementById("mins").innerText = String(m).padStart(2,'0');
-      document.getElementById("secs").innerText = String(s).padStart(2,'0');
-    }
+<div class="share">
+  <button class="btn" onclick="sharePage()">SHARE</button>
+</div>
 
-    updateCountdown();
-    setInterval(updateCountdown,1000);
-  </script>
+<script>
+// COUNTDOWN TIMER
+const countdownDate = new Date("June 1, 2026 21:00:00 GMT+0100").getTime();
+
+const x = setInterval(function() {
+  const now = new Date().getTime();
+  const distance = countdownDate - now;
+
+  const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+  document.getElementById("days").innerHTML = days;
+  document.getElementById("hours").innerHTML = hours;
+  document.getElementById("minutes").innerHTML = minutes;
+  document.getElementById("seconds").innerHTML = seconds;
+
+  if (distance < 0) {
+    clearInterval(x);
+    document.querySelector(".countdown").innerHTML = "LIVE NOW";
+  }
+}, 1000);
+
+// SHARE FUNCTION
+function sharePage() {
+  if (navigator.share) {
+    navigator.share({
+      title: "Karl Pilkington Virtual Pub Quiz",
+      text: "Join the quiz!",
+      url: window.location.href
+    });
+  } else {
+    navigator.clipboard.writeText(window.location.href);
+    alert("Link copied!");
+  }
+}
+</script>
 
 </body>
 </html>
