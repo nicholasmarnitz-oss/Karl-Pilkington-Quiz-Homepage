@@ -100,25 +100,21 @@ body{
 /* BUTTONS */
 .btnRow{
   margin-top:25px;
-  display:flex;
-  justify-content:center;
+  display:grid;
+  grid-template-columns: repeat(4, 1fr);
   gap:15px;
-  flex-wrap:wrap;
 }
 
 .btn{
   font-family:"Luckiest Guy", system-ui, sans-serif;
-  min-width:170px;
-  padding:14px 16px;
-  border-radius:22px;
+  padding:15px 20px;
+  border-radius:20px;
   background:var(--btn);
-  border:0;
+  color:white;
+  font-size:18px;
   cursor:pointer;
-  text-decoration:none;
-  color:var(--text);
-  text-transform:uppercase;
-  letter-spacing:1px;
-  font-size:16px;
+  border:none;
+  width:100%;
 
   box-shadow:
     0 10px 0 var(--btnEdge),
