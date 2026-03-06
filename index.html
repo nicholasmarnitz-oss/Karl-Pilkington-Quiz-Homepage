@@ -107,18 +107,40 @@ body{
 }
 
 .btn{
-  font-family:'Luckiest Guy', cursive;
+  font-family:"Luckiest Guy", system-ui, sans-serif;
+  min-width:170px;
+  padding:14px 16px;
+  border-radius:22px;
   background:var(--btn);
-  color:white;
-  padding:15px 20px;
-  border-radius:20px;
-  text-decoration:none;
-  font-size:18px;
-  box-shadow:0 6px var(--btnEdge);
+  border:0;
   cursor:pointer;
-  border:none;
+  text-decoration:none;
+  color:var(--text);
+  text-transform:uppercase;
+  letter-spacing:1px;
+  font-size:16px;
+
+  box-shadow:
+    0 10px 0 var(--btnEdge),
+    0 22px 34px rgba(0,0,0,.25);
+
+  text-shadow:
+    -2px -2px 0 var(--outline),
+     2px -2px 0 var(--outline),
+    -2px  2px 0 var(--outline),
+     2px  2px 0 var(--outline);
+
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
 }
 
+.btn:active{
+  transform:translateY(4px);
+  box-shadow:
+    0 6px 0 var(--btnEdge),
+    0 14px 22px rgba(0,0,0,.22);
+}
 .btn:active{
   transform:translateY(4px);
   box-shadow:0 2px var(--btnEdge);
