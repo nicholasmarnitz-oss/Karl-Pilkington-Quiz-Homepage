@@ -128,11 +128,6 @@ body{
     0 14px 22px rgba(0,0,0,.22);
 }
 
-.btn:active{
-  transform:translateY(4px);
-  box-shadow:0 6px var(--btnEdge);
-}
-
 .toast{
   margin-top:10px;
   font-size:13px;
@@ -176,6 +171,17 @@ body{
 <li>We’ll send the livestream and app link <strong>1 hour before</strong> kickoff.</li>
 </ul>
 
+<h2>Privacy</h2>
+
+<ul>
+<li>This is a fan-made quiz event.</li>
+<li>We only collect the minimum information needed to process ticket purchases, manage entries, and contact participants about the event.</li>
+<li>Payment is handled through our checkout provider. We do not store your full card details on this site.</li>
+<li>We do <strong>not sell your personal data</strong> or share it for advertising.</li>
+<li>Your email may be used to send your quiz access details, event updates, and important ticket information.</li>
+<li>Your information will be deleted after the event.</li>
+</ul>
+
 </section>
 
 <div class="btnRow">
@@ -192,7 +198,7 @@ body{
 async function buyTicket(){
 
   const toast=document.getElementById("toast")
-  toast.innerText="Redirecting to checkout..."
+  toast.innerText="Redirecting to secure checkout..."
 
   try{
 
