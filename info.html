@@ -35,6 +35,23 @@ body{
   background: linear-gradient(180deg,var(--bgTop),var(--bgMid),var(--bgBot));
   color:var(--text);
   font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+  position:relative;
+}
+
+.logoCorner{
+  position:fixed;
+  top:18px;
+  left:18px;
+  width:56px;
+  height:56px;
+  z-index:999;
+}
+
+.logoCorner img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  display:block;
 }
 
 .stage{
@@ -136,6 +153,10 @@ body{
 </head>
 
 <body>
+
+<a href="index.html" class="logoCorner">
+  <img src="apple-touch-icon.png" alt="Quizzicks Logo">
+</a>
 
 <main class="stage">
 
